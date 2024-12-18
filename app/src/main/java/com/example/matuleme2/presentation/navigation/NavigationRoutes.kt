@@ -1,0 +1,14 @@
+package com.example.matuleme2.presentation.navigation
+
+object NavigationRoutes {
+    const val SIGNIN ="signin"
+    const val ONBOARDING ="onboarding"
+    const val SPLASH = "screensaver"
+    const val MAIN = "мainScreen"
+    const val FAVOURITE = "fav"
+    const val NOTIFICATION = "notif"
+    const val PROFILE = "profile"
+    const val BUCKET = "bucket"
+    const val SIGNUP = "signup"
+
+}
