@@ -1,4 +1,4 @@
-package com.example.matuleme2.presentation.screens.Matuleme.onboarding.model
+package com.example.matuleme2.presentation.screens.onboarding.model
 
 import android.annotation.SuppressLint
 import androidx.annotation.IntegerRes

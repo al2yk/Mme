@@ -20,3 +20,5 @@ val block = Color(0xFFFFFFFF)
 val text = Color(0xFF2B2B2B)
 val hint = Color(0xFF6A6A6A)
 val subtextdark = Color(0xFF707B81)
+
+val prof = Color(0xDFF7F7F9)

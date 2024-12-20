@@ -1,6 +1,5 @@
-package com.example.matuleme2.presentation.screens.SignUp
+package com.example.matuleme2.presentation.screens.signup
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -20,7 +19,7 @@ import io.github.jan.supabase.postgrest.from
 import kotlinx.coroutines.launch
 import java.sql.Timestamp
 
-class SignUpViewModel : ViewModel() {
+class SingUpViewModel : ViewModel() {
     private val _state = mutableStateOf(SignUpState())
     val state: SignUpState get() = _state.value
 

@@ -1,14 +1,18 @@
-package com.example.matuleme2.presentation.screens.Matuleme.splash
+package com.example.matuleme2.presentation.screens.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.matuleme2.domain.repository.UserRepository
 import com.example.matuleme2.presentation.navigation.NavigationRoutes
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class splashviewmodel : ViewModel(){
+@HiltViewModel
+class SplashViewModel @Inject constructor() : ViewModel() {
+
     fun launch(controller: NavHostController) {
         viewModelScope.launch {
             delay(3000) //задержка

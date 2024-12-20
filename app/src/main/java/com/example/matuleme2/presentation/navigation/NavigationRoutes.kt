@@ -10,5 +10,10 @@ object NavigationRoutes {
     const val PROFILE = "profile"
     const val BUCKET = "bucket"
     const val SIGNUP = "signup"
+    const val FORGOTPASSWORD = "forgotpassword"
+    const val OTP = "otp"
+    const val SIDEMENU = "sidemenu"
+    const val BASICPROFILE = "basicprofile"
+    const val EDITPROFILE = "editproofile"
 
 }

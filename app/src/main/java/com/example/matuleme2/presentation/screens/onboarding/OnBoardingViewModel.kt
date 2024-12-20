@@ -1,8 +1,8 @@
-package com.example.matuleme2.presentation.screens.Matuleme.onboarding
+package com.example.matuleme2.presentation.screens.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
-import com.example.matuleme2.presentation.screens.Matuleme.onboarding.model.OnBoardingUIState
+import com.example.matuleme2.presentation.screens.onboarding.model.OnBoardingUIState
 import com.example.matuleme2.presentation.screens.singin.Signin
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

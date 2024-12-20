@@ -1,6 +1,5 @@
 package com.example.matuleme2.presentation.screens.main.popular
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.matuleme2.data.models.states.MainScreenSearchState

@@ -1,4 +1,4 @@
-package com.example.matuleme2.presentation.screens.Matuleme.onboarding
+package com.example.matuleme2.presentation.screens.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,7 +35,7 @@ import com.example.matuleme2.R
 import com.example.matuleme2.domain.repository.UserRepository
 import com.example.matuleme2.presentation.navigation.NavigationRoutes
 import com.example.matuleme2.presentation.screens.components.gradient
-import com.example.matuleme2.presentation.screens.Matuleme.onboarding.model.OnBoardingUIState
+import com.example.matuleme2.presentation.screens.onboarding.model.OnBoardingUIState
 import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.block
 import com.example.matuleme2.presentation.ui.theme.disable

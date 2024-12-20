@@ -1,4 +1,4 @@
-package com.example.matuleme2.presentation.screens.Matuleme.splash
+package com.example.matuleme2.presentation.screens.splash
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.matuleme2.presentation.screens.components.gradient
 import com.example.matuleme2.presentation.ui.theme.block
@@ -19,8 +19,7 @@ import com.example.matuleme2.presentation.ui.theme.textfam
 
 
 @Composable
-fun splashscreen(controller: NavHostController) {
-    val VM = viewModel { splashviewmodel() }
+fun SplashScreen(controller: NavHostController, VM: SplashViewModel = hiltViewModel()) {
 
     LaunchedEffect(Unit) {
         VM.launch(controller)

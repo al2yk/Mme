@@ -24,9 +24,12 @@ fun Preview() {
 @Composable
 fun item(controller: NavHostController){
 
-//  как узнать размер в зависимости от телефона?
-    val configuration = LocalConfiguration.current
-    val screenHeight = configuration.screenHeightDp
-    val screenWidth = configuration.screenWidthDp
+//  узнать размер в зависимости от телефона
+//    val configuration = LocalConfiguration.current
+//    val screenHeight = configuration.screenHeightDp
+//    val screenWidth = configuration.screenWidthDp
+
+
+
     
 }

@@ -30,7 +30,7 @@ import com.example.matuleme2.presentation.ui.theme.textfam
 
 //Чтобы скрыть
 @Composable
-fun TextFieldSignInEmail(value: String, placeholder: String, onvaluechange: (String) -> Unit) {
+fun TextFieldSignInEmail(value: String, placeholder: String,enabled:Boolean,textcolor:Color, onvaluechange: (String) -> Unit) {
     TextField(
         value = value,
         onValueChange = { onvaluechange(it) },
@@ -42,15 +42,18 @@ fun TextFieldSignInEmail(value: String, placeholder: String, onvaluechange: (Str
             focusedTextColor = text,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent
+            disabledIndicatorColor = Color.Transparent,
+            disabledContainerColor = background,
+            disabledTextColor = textcolor
         ),
         shape = RoundedCornerShape(15.dp),
         singleLine = true,
+        enabled = enabled,
         placeholder = {
             Text(
                 placeholder,
-                color = hint,
-                fontSize = 16.sp,
+                color = textcolor,
+                fontSize = 14.sp,
                 fontFamily = textfam,
                 fontWeight = FontWeight.W600
             )

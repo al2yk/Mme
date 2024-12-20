@@ -35,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.matuleme2.R
+import com.example.matuleme2.presentation.navigation.NavigationRoutes
 import com.example.matuleme2.presentation.screens.main.popular.components.WhiteButtonMainScreen
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.background
@@ -74,7 +75,9 @@ fun MainScreen(controller: NavHostController) {
             Icon(
                 painter = painterResource(R.drawable.menu),
                 contentDescription = "",
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier.align(Alignment.CenterStart).clickable {
+                    controller.navigate(NavigationRoutes.SIDEMENU)
+                }
             )
 
             //Доделать иконку над буквой "Г"

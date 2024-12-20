@@ -14,7 +14,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.matuleme2.domain.repository.UserRepository
 import com.example.matuleme2.presentation.navigation.Navigation
 import com.example.matuleme2.presentation.ui.theme.MATULEme2Theme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -30,7 +32,6 @@ class MainActivity : ComponentActivity() {
                     //BottomBar(controller)
                 })
                 {
-
                     Navigation(controller)
                 }
             }
