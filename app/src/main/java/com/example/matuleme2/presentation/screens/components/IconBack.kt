@@ -1,5 +1,6 @@
 package com.example.matuleme2.presentation.screens.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import com.example.matuleme2.presentation.ui.theme.background
 //    iconback()
 //}
 
+@SuppressLint("RestrictedApi")
 @Composable
 fun iconback(controller: NavHostController) {
         Box(modifier = Modifier
@@ -31,7 +33,11 @@ fun iconback(controller: NavHostController) {
             .background(background)
             .clickable {
                 //ДОПИСАТЬ ТО ЧТО, ЕСЛИ ПРЕДЫДУЩАЯ СПЛЭШ - НЕ ВОЗВРАЩАТЬСЯ
-                controller.navigateUp()
+                if(controller.currentBackStack.value.size != 1) {
+                    controller.navigateUp()
+                }
+
+
             }, contentAlignment = Alignment.TopStart
         )
         {

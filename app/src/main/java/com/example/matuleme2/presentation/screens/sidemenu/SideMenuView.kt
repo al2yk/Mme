@@ -1,5 +1,6 @@
 package com.example.matuleme2.presentation.screens.sidemenu
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,22 +32,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.matuleme2.R
-import com.example.matuleme2.data.states.EditProfileState
+import com.example.matuleme2.data.models.User
+import com.example.matuleme2.domain.Constants
+import com.example.matuleme2.domain.repository.UserRepository
 import com.example.matuleme2.presentation.navigation.NavigationRoutes
-import com.example.matuleme2.presentation.screens.profile.editprofile.EditProfileView
-import com.example.matuleme2.presentation.screens.profile.editprofile.EditProfileViewModel
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.block
 import com.example.matuleme2.presentation.ui.theme.prof
+import com.example.matuleme2.presentation.ui.theme.red
 import com.example.matuleme2.presentation.ui.theme.textfam
+import io.github.jan.supabase.gotrue.auth
 
 
 @Preview()
 @Composable
 fun Preview() {
-    SideMenuView(rememberNavController())
+//    SideMenuView(rememberNavController())
 }
 
 @Composable
@@ -55,8 +57,10 @@ fun SideMenuView(controller: NavHostController) {
 //    val viewModel = viewModel { SideMenuViewModel() }
 //    val state = viewModel.state
 
-    val viewModel = viewModel { EditProfileViewModel()}
+    val viewModel = viewModel { SideMenuViewModel()}
     val state = viewModel.state
+    val user:User
+
 
     Box(modifier = Modifier.background(accent)) {
         Column(
@@ -81,7 +85,7 @@ fun SideMenuView(controller: NavHostController) {
                 //Добавить пути по иконкам
                 Spacer(modifier = Modifier.height(25.dp))
                 Row {
-                    TextNameSurname("${state.name} ${state.surname}")
+                    TextNameSurname("")
                     Spacer(modifier = Modifier.width(5.dp))
 
                 }
@@ -109,14 +113,20 @@ fun SideMenuView(controller: NavHostController) {
                         .background(prof)
                         .height(1.dp)
                 )
-
+                val currentUser = Constants.supabase.auth.currentUserOrNull()
+                Log.d("curUser", currentUser.toString())
 
 
                 //реализовать выход из аккаунта
 
                 Spacer(modifier = Modifier.height(30.dp))
-                IconAndText(painterResource(R.drawable.exit), "Выйти"){
-                    controller.navigate(NavigationRoutes.SIGNIN)
+                IconAndText(painterResource(R.drawable.exit), "Выйти") {
+                    UserRepository.act = 1
+                    controller.navigate(NavigationRoutes.SIGNIN) {
+                        popUpTo(0) {
+                            inclusive = true
+                        }
+                    }
                 }
             }
 
@@ -196,8 +206,8 @@ fun IconAndTextForNotification(icon: Painter, title: String, way: String) {
                     .padding(end = 3.dp)
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ellipse), tint = Color.Red,
-                    contentDescription = "", modifier = Modifier
+                    painter = painterResource(R.drawable.ellipse), tint = red,
+                   contentDescription = "", modifier = Modifier
                         .size(8.dp)
                         .align(Alignment.TopEnd)
                 )

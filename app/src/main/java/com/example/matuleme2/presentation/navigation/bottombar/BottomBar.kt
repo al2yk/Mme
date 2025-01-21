@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -47,27 +49,47 @@ fun BottomBar(controller: NavHostController) {
             contentDescription = "")
         Row(modifier = Modifier.padding(bottom = 12.dp, top = 8.dp), verticalAlignment = Alignment.Bottom) {
             screens.forEach { screen ->
-                Column(modifier = Modifier.weight(1f)
-                    .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {
-                        if(currentRoute != screen.route) {
-                            controller.navigate(screen.route) {
-                                currentRoute?.let {
-                                    popUpTo(it) {
-                                        inclusive = true
+                if(screen.route != BottomBarRoutes.BuckScreen.route) {
+                    Column(modifier = Modifier.weight(1f)
+                        .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {
+                            if(currentRoute != screen.route) {
+                                controller.navigate(screen.route) {
+                                    currentRoute?.let {
+                                        popUpTo(it) {
+                                            inclusive = true
+                                        }
                                     }
                                 }
                             }
+                        },horizontalAlignment = Alignment.CenterHorizontally) {
+                        var selectedColor = subtextdark
+                        if(currentRoute == screen.route) {
+                            selectedColor = accent
                         }
-                    },horizontalAlignment = Alignment.CenterHorizontally) {
-                    var selectedColor = subtextdark
-                    if(currentRoute == screen.route) {
-                        selectedColor = accent
+                        Spacer(modifier = Modifier.height(38.dp))
+                        Icon(imageVector = ImageVector.vectorResource(id = screen.resourceId!!),
+                            modifier = Modifier.size(25.dp),
+                            contentDescription = "", tint = selectedColor)
                     }
-                    Spacer(modifier = Modifier.height(38.dp))
-                    Icon(imageVector = ImageVector.vectorResource(id = screen.resourceId!!),
-                        modifier = Modifier.size(25.dp),
-                        contentDescription = "", tint = selectedColor)
                 }
+                else {
+                    Icon(imageVector = ImageVector.vectorResource(id = screens[2].resourceId!!), tint = Color.White,
+                        modifier = Modifier
+                            .size(56.dp)
+                            .offset(y = -20.dp).shadow(elevation = 4.dp, shape = CircleShape)
+                            .background(accent, CircleShape).padding(16.dp)
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null) {
+                                controller.navigate(screens[2].route) {
+                                    popUpTo(currentRoute!!) {
+                                        inclusive = true
+                                    }
+                                }
+                            },
+                        contentDescription = "")
+                }
+
             }
         }
     }

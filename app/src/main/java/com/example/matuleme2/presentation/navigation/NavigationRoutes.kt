@@ -7,7 +7,7 @@ object NavigationRoutes {
     const val MAIN = "мainScreen"
     const val FAVOURITE = "fav"
     const val NOTIFICATION = "notif"
-    const val PROFILE = "profile"
+    /*const val PROFILE = "profile"*/
     const val BUCKET = "bucket"
     const val SIGNUP = "signup"
     const val FORGOTPASSWORD = "forgotpassword"
@@ -15,5 +15,10 @@ object NavigationRoutes {
     const val SIDEMENU = "sidemenu"
     const val BASICPROFILE = "basicprofile"
     const val EDITPROFILE = "editproofile"
+    const val POPULAR = "popular"
+    const val CATEGORY = "category"
+    const val PRODUCT = "product"
+    const val SEARCH = "search"
+
 
 }

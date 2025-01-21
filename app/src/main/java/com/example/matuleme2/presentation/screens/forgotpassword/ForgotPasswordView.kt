@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,7 +24,10 @@ import com.example.matuleme2.presentation.ui.theme.subtextdark
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.Navigation
 import com.example.matuleme2.R
+import com.example.matuleme2.presentation.navigation.NavigationRoutes
+import com.example.matuleme2.presentation.screens.forgotpassword.components.AlertDialogExample
 import com.example.matuleme2.presentation.ui.theme.hint
 
 @Composable
@@ -68,7 +70,7 @@ fun ForgotPasswordView(
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        TextFieldSignInEmail(state.email, "xyz@gmail.com",true, hint) {
+        TextFieldSignInEmail(state.email, "xyz@gmail.com", true, hint) {
             viewModel.updatestate(state.copy(email = it))
         }
         Spacer(modifier = Modifier.height(40.dp))
@@ -76,9 +78,13 @@ fun ForgotPasswordView(
             viewModel.ForgotPasswordOTP(controller)
         }
 
-        if(state.dialog == true){
+        if (state.dialog == true) {
             AlertDialogExample(
-                onDismissRequest = { state.dialog = false },
+                onDismissRequest =
+                {
+                    viewModel.updatestate(state.copy(dialog = false))
+                    controller.navigate(NavigationRoutes.OTP)
+                },
                 onConfirmation = {
                     state.dialog = false
                     println("Confirmation registered")

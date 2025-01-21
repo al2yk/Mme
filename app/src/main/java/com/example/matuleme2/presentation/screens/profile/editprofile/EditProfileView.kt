@@ -1,6 +1,7 @@
 package com.example.matuleme2.presentation.screens.profile.editprofile
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -93,7 +94,7 @@ fun EditProfileView(controller: NavHostController) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        "Имя",
+                        state.name,
                         fontFamily = textfam,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 20.sp,
@@ -101,7 +102,7 @@ fun EditProfileView(controller: NavHostController) {
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
-                        "Фамилия",
+                        state.surname,
                         fontFamily = textfam,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 20.sp,
@@ -153,7 +154,8 @@ fun EditProfileView(controller: NavHostController) {
 
                 //Переделать
                 TextNearTextFieldInProfile("Телефон")
-                TextFieldForEditProfile(state.telephone) { vm.updatestate(state.copy(telephone = it)) }
+                TextFieldForEditProfile(state.telephone) {
+                    vm.updatestate(state.copy(telephone = it)) }
                 Spacer(modifier = Modifier.height(100.dp))
 
             }
@@ -166,6 +168,8 @@ fun EditProfileView(controller: NavHostController) {
 
 @Composable
 fun TextFieldForEditProfile(value: String, onvaluechange: (String) -> Unit) {
+
+    val vm = viewModel { EditProfileViewModel() }
     TextField(
         value = value,
         onValueChange = { onvaluechange(it) },
@@ -188,7 +192,10 @@ fun TextFieldForEditProfile(value: String, onvaluechange: (String) -> Unit) {
             Icon(
                 painter = painterResource(R.drawable.yesicon),
                 contentDescription = "",
-                tint = accent
+                tint = accent,
+                modifier = Modifier.clickable {
+                    vm.EditProfileData(value)
+                }
             )
         }
     )

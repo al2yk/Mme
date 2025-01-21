@@ -13,5 +13,6 @@ data class User(
     var address: String,
     var email: String,
     var image: String,
+    var phone_number: String
 )
 

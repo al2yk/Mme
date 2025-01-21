@@ -51,7 +51,8 @@ class SingUpViewModel : ViewModel() {
                                 name = state.name,
                                 surname = "",
                                 created_at = Timestamp(System.currentTimeMillis()).toString(),
-                                image = ""
+                                image = "",
+                                phone_number = ""
                             )
                         )
                         Log.d("create user", "супер")

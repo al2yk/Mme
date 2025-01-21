@@ -10,12 +10,12 @@ sealed class BottomBarRoutes(
 
     object MainScreen : BottomBarRoutes(
         route = NavigationRoutes.MAIN,
-        resourceId = R.drawable.bag
+        resourceId = R.drawable.home_2
     )
 
     object FavScreen : BottomBarRoutes(
         route = NavigationRoutes.FAVOURITE,
-        resourceId = R.drawable.bag
+        resourceId = R.drawable.favprofile
     )
 
     object BuckScreen : BottomBarRoutes(
@@ -25,12 +25,12 @@ sealed class BottomBarRoutes(
 
     object NotScreen : BottomBarRoutes(
         route = NavigationRoutes.NOTIFICATION,
-        resourceId = R.drawable.bag
+        resourceId = R.drawable.notification
     )
 
     object ProfileScreen : BottomBarRoutes(
-        route = NavigationRoutes.PROFILE,
-        resourceId = R.drawable.bag
+        route = NavigationRoutes.BASICPROFILE,
+        resourceId = R.drawable.profile
     )
 
 }

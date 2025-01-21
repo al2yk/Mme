@@ -16,21 +16,21 @@ class SplashViewModel @Inject constructor() : ViewModel() {
     fun launch(controller: NavHostController) {
         viewModelScope.launch {
             delay(3000) //задержка
-            if(UserRepository.act == 0) {
+            if(UserRepository.act == Acts.ONBOARDING) {
                 controller.navigate(NavigationRoutes.ONBOARDING) {
                     popUpTo(NavigationRoutes.SPLASH) {
                         inclusive = true
                     }
                 }
             }
-            if(UserRepository.act == 1) {
+            if(UserRepository.act == Acts.SIGNIN) {
                 controller.navigate(NavigationRoutes.SIGNIN) {
                     popUpTo(NavigationRoutes.SPLASH) {
                         inclusive = true
                     }
                 }
             }
-            if(UserRepository.act == 2) {
+            if(UserRepository.act == Acts.MAIN) {
                 controller.navigate(NavigationRoutes.MAIN) {
                     popUpTo(NavigationRoutes.SPLASH) {
                         inclusive = true
@@ -40,3 +40,4 @@ class SplashViewModel @Inject constructor() : ViewModel() {
         }
     }
 }
+

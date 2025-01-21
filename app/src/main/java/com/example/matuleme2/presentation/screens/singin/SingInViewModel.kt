@@ -39,10 +39,10 @@ class SingInViewModel @Inject constructor(@ApplicationContext private val contex
                 //Если email соответсвует патерну то supabase принимает значения
                 if(state.email.isEmailValid()) {
 //                     Попытка отправки кода на email
-//                    Constants.supabase.auth.signUpWith(OTP) {
-//                        createUser = false
-//                        email = "sharonovaas@mail.ru"
-//                    }
+/*                    Constants.supabase.auth.signUpWith(OTP) {
+                        createUser = false
+                        email = "sharonovaas@mail.ru"
+                    }*/
                     Constants.supabase.auth.signOut()
                     Constants.supabase.auth.signInWith(Email) {
                         email = state.email

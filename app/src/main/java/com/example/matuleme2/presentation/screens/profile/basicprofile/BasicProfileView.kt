@@ -103,7 +103,7 @@ fun BasicProfileView(controller: NavHostController) {
         }
         Spacer(modifier = Modifier.height(20.dp))
         TextNearTextFieldEditProfile("Ваше имя")
-        TextFieldSignInEmail(state.name, "${state.surname} ${state.surname}",false, text) {
+        TextFieldSignInEmail(state.name, "",false, text) {
             vm.updatestate(state.copy(name = it))
         }
         Spacer(modifier = Modifier.height(30.dp))
