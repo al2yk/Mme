@@ -9,6 +9,7 @@ object UserRepository {
     fun init(context: Context) {
         actSystem = context.getSharedPreferences("actSystem", Context.MODE_PRIVATE)
     }
+
     //для понимания где находиться пользователь
     //просмотрели ли он onboarding
     var act: Int

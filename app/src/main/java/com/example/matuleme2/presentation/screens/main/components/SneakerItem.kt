@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
@@ -48,7 +49,7 @@ import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
 @Composable
-fun SneakerItem(sneaker: Sneaker) {
+fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit) {
     var height by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
     Box(
@@ -60,7 +61,11 @@ fun SneakerItem(sneaker: Sneaker) {
             .onSizeChanged { height = with(density) { it.height.toDp() } }
     ) {
         var favIconColor: Color = text
-//        if (true) favIconColor = red
+        var favIconRes = R.drawable.favprofile
+        if(isFavourite) {
+            favIconColor = red
+            favIconRes = R.drawable.icon_is_fav
+        }
         Box(modifier = Modifier.padding(top = 9.dp, start = 9.dp)) {
             Box(
                 modifier = Modifier
@@ -69,7 +74,7 @@ fun SneakerItem(sneaker: Sneaker) {
                     .size(28.dp)
                     .background(Color.White)
                     .clickable {
-
+                        onClickFav()
                     }
             ) {
 /*                                    IconButton(onClick = { isLiked = !isLiked }) {
@@ -86,9 +91,9 @@ fun SneakerItem(sneaker: Sneaker) {
                                         )
                                     }*/
                 Icon(
-                    painter = painterResource(R.drawable.favprofile), tint = favIconColor,
+                    painter = painterResource(favIconRes), tint = favIconColor,
                     contentDescription = "",
-                    modifier = Modifier.align(Alignment.Center),
+                    modifier = Modifier.align(Alignment.Center).size(15.dp),
 
                     )
             }

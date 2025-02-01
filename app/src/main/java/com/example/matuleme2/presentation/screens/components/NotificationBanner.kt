@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
@@ -36,7 +37,8 @@ import java.util.Date
 fun Preview() {
     Banner()
 }
-
+//ПЕРЕДЕЛАТЬ
+//Банер В уведомлениях
 @SuppressLint("SimpleDateFormat")
 @Composable
 fun Banner() {
@@ -53,6 +55,13 @@ fun Banner() {
 
 
     val vm = viewModel { (NotificationViewModel()) }
+    val state = vm.state
+
+    LaunchedEffect(Unit) {
+        vm.getNotification()
+    }
+
+    val notiList = state.notificationList
 
     Box(
         modifier = Modifier
@@ -66,9 +75,7 @@ fun Banner() {
             //Text(vm.getNotification(), fontFamily = textfam, fontWeight = FontWeight.Bold, color = text)
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                "Lorem ipsum dolor sit amet consectetur. Venenatis pulvinar" +
-                        " lobortis risus consectetur morbi egestas id in bibendum. Volutpat " +
-                        "nulla urna sit sed diam nulla.",
+                text = "" ,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.W600,
                 fontFamily = textfam,

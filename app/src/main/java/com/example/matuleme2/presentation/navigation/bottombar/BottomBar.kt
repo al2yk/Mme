@@ -40,26 +40,29 @@ import com.example.matuleme2.presentation.ui.theme.subtextdark
 
 @Composable
 fun BottomBar(controller: NavHostController) {
+    //Лист хранящий все направления в БотомБар
     val screens = listOf(BottomBarRoutes.MainScreen, BottomBarRoutes.FavScreen, BottomBarRoutes.BuckScreen, BottomBarRoutes.NotScreen, BottomBarRoutes.ProfileScreen)
     Box() {
+        //Переменная контроля стека
         val navBackStackEntry by controller.currentBackStackEntryAsState()
+        //информацию о текущем экране или фрагменте, на котором находится пользователь.
         val currentRoute = navBackStackEntry?.destination?.route
+
+        //Рисовка БотомБара
         Image(imageVector = ImageVector.vectorResource(R.drawable.bottombar),
             modifier = Modifier.fillMaxWidth(), contentScale = ContentScale.FillBounds,
             contentDescription = "")
+
+        //Строка из иконок в БотомБар
         Row(modifier = Modifier.padding(bottom = 12.dp, top = 8.dp), verticalAlignment = Alignment.Bottom) {
             screens.forEach { screen ->
+                //Условие которое поднимает Иконку с Корзиной выше других
                 if(screen.route != BottomBarRoutes.BuckScreen.route) {
                     Column(modifier = Modifier.weight(1f)
                         .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {
+                            //
                             if(currentRoute != screen.route) {
-                                controller.navigate(screen.route) {
-                                    currentRoute?.let {
-                                        popUpTo(it) {
-                                            inclusive = true
-                                        }
-                                    }
-                                }
+                                controller.navigate(screen.route)
                             }
                         },horizontalAlignment = Alignment.CenterHorizontally) {
                         var selectedColor = subtextdark
@@ -72,10 +75,12 @@ fun BottomBar(controller: NavHostController) {
                             contentDescription = "", tint = selectedColor)
                     }
                 }
+                //То есть если screen.route = корзина поднимаем её вверх
                 else {
                     Icon(imageVector = ImageVector.vectorResource(id = screens[2].resourceId!!), tint = Color.White,
                         modifier = Modifier
                             .size(56.dp)
+                            //Поднятие по y
                             .offset(y = -20.dp).shadow(elevation = 4.dp, shape = CircleShape)
                             .background(accent, CircleShape).padding(16.dp)
                             .clickable(

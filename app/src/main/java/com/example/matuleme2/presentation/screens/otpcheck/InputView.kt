@@ -5,44 +5,30 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.red
 import com.example.matuleme2.presentation.ui.theme.text
-import io.github.jan.supabase.gotrue.OtpType
-import kotlinx.coroutines.delay
 
 fun NextFocus(textList: List<MutableState<TextFieldValue>>, requesteList: List<FocusRequester>) {
     for (index in textList.indices) {
@@ -54,12 +40,12 @@ fun NextFocus(textList: List<MutableState<TextFieldValue>>, requesteList: List<F
         }
     }
 }
-
+//ОДНА ЯЧЕЙКА
 @Composable
 fun InputView(
-    value: TextFieldValue,
+    value: String,
     focusRequester: FocusRequester,
-    onValue: (value: TextFieldValue) -> Unit,
+    onValue: (String) -> Unit,
 ) {
     /* BasicTextField(
          readOnly = false, value = value, onValueChange = onValueChange,
@@ -99,7 +85,7 @@ fun InputView(
     ) {
         OutlinedTextField(
             value = value,
-            onValueChange = onValue,
+            onValueChange = { onValue(it) },
             singleLine = true,
             maxLines = 1, shape = RoundedCornerShape(5.dp),
             modifier = Modifier
@@ -131,8 +117,41 @@ fun InputView(
     }
 
 }
+//СТРОКА ВВОДА КОДА
+@Composable
+fun InputCode(vm: OTPCheckViewModel, email: String) {
+    val codeLength = 6 // Длина кода
+    val code = remember { mutableStateListOf(*Array(codeLength) { "" }) }
+    val focusRequesters = List(codeLength) { FocusRequester() }
 
-@OptIn(ExperimentalComposeUiApi::class)
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Transparent)
+        ) {
+            Row(modifier = Modifier.align(Alignment.Center)) {
+                for (i in 0 until codeLength) {
+                    InputView(code[i], focusRequesters[i]) { newValue ->
+                        if (newValue.length <= 1) {
+                            code[i] = newValue
+                            if (newValue.isNotEmpty() && i < codeLength - 1) {
+                                focusRequesters[i + 1].requestFocus()
+                            } else if (newValue.isEmpty() && i > 0) {
+                                focusRequesters[i - 1].requestFocus()
+                            }
+                        }
+                        if (code.all { it.isNotEmpty() }) {
+                            vm.checkOtpCode(email, code.joinToString(""))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ContentView(
     textList: List<MutableState<TextFieldValue>>,
@@ -182,7 +201,7 @@ fun ContentView(
         delay(300)
         requesteList[0].requestFocus()
     })
-}
+}*/
 
 fun correctOtp(textList: List<MutableState<TextFieldValue>>, onVerifyCode:((success:Boolean)->Unit)?=null){
     var code = ""

@@ -12,8 +12,8 @@ import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
 @Composable
-fun TopBar(controller: NavHostController,textcenter:String,fontWeight: FontWeight,endicon: @Composable ()->Unit) {
-    Box() {
+fun TopBar(controller: NavHostController,textcenter:String,fontWeight: FontWeight, endicon: @Composable ()->Unit) {
+    Box {
         Box(modifier = Modifier.fillMaxWidth()) {
             iconback(controller)
             Text(

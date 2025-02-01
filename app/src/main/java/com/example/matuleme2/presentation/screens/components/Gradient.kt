@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Brush
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.disable
 
+//Градиент
 object gradient {
     val gradient = Brush.verticalGradient(
         0.0f to accent,
@@ -11,5 +12,4 @@ object gradient {
         startY = 0.0f,
         endY = 4000.0f
     )
-
 }

@@ -83,7 +83,7 @@ fun ForgotPasswordView(
                 onDismissRequest =
                 {
                     viewModel.updatestate(state.copy(dialog = false))
-                    controller.navigate(NavigationRoutes.OTP)
+                    controller.navigate(NavigationRoutes.OTP + "/${state.email}")
                 },
                 onConfirmation = {
                     state.dialog = false

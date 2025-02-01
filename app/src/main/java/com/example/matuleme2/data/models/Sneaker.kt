@@ -10,10 +10,6 @@ data class Sneaker(
     var full_description: String,
     var image: String,
     var cost: Float,
-
-    //Нужно убрать
-//    var is_favourite: Boolean,
-
     var id_category: String,
     var is_popular: Boolean,
     var small_title: String,

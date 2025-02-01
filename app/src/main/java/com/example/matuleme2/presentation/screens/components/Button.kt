@@ -19,6 +19,7 @@ import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.disable
 import com.example.matuleme2.presentation.ui.theme.textfam
 
+//Обычная кнопка "Отправить" "Сохранить"
 @Composable
 fun ButtonExit(buttontext: String, onclick: () -> Unit) {
 
@@ -43,6 +44,8 @@ fun ButtonExit(buttontext: String, onclick: () -> Unit) {
         )
     }
 }
+
+//Кнопка Зарегестрироваться (Отличие - доступна/не доступна)
 
 @Composable
 fun ButtomWithCheckBox(buttontext: String, onclick: () -> Unit,) {

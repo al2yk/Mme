@@ -22,6 +22,14 @@ val textfam =FontFamily(
     Font(R.font.raleway_light,FontWeight.ExtraLight)
 )
 
+
+
+
+
+
+
+
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(

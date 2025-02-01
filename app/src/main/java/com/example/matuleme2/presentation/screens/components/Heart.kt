@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.matuleme2.R
 
+//Круг с сердцем
 @Composable
 fun Heart() {
     Box(modifier = Modifier.fillMaxWidth()) {
@@ -36,5 +37,4 @@ fun Heart() {
             )
         }
     }
-
 }

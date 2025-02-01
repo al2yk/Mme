@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.example.matuleme2.R
 import com.example.matuleme2.presentation.ui.theme.red
 
+
+//Корзина с Красной точкой
 @Composable
 fun BagWithRed(){
     Box(modifier = Modifier.fillMaxWidth()) {

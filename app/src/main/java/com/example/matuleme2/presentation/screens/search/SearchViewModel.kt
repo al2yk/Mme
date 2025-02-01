@@ -1,6 +1,7 @@
 package com.example.matuleme2.presentation.screens.search
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +28,7 @@ class SearchViewModel : ViewModel() {
 
     /*val text = mutableStateOf("")*/
 
-    fun searchSneaker(/*sneakerName: String*/) {
+    fun searchSneaker(sneakerName: String) {
         viewModelScope.launch {
             try {
                 val listsneaker = Constants.supabase.from("sneakers").select()
@@ -35,12 +36,10 @@ class SearchViewModel : ViewModel() {
                     filter {
                         ilike(
                             "small_title",
-                            "%${state.searchtext}%"
+                            "%${sneakerName}%"
                         )
                     }
                 }.decodeList<Sneaker>()
-
-
                 updateState(_state.value.copy(sneakerslist = listsneaker))
                 Log.d("Search", listsneaker.size.toString())
 

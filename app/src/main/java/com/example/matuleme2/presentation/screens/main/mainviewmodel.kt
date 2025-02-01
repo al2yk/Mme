@@ -10,6 +10,7 @@ import com.example.matuleme2.data.models.Sneaker
 import com.example.matuleme2.data.models.User
 import com.example.matuleme2.data.models.states.MainScreenSearchState
 import com.example.matuleme2.domain.Constants
+import com.example.matuleme2.domain.Requests
 import com.example.matuleme2.presentation.navigation.NavigationRoutes
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.postgrest.from
@@ -23,7 +24,7 @@ class mainviewmodel() :ViewModel() {
     fun updatestate(newstate: MainScreenSearchState)
     {_state.value = newstate}
 
-    fun getData(controller: NavHostController) {
+    fun getData() {
         viewModelScope.launch {
             try {
 
@@ -37,10 +38,12 @@ class mainviewmodel() :ViewModel() {
                 //Обновляем состояние на лист категорий
                 updatestate(_state.value.copy(categories = listCategory))
 
-                val listSneakers = Constants.supabase.from("sneakers").select().decodeList<Sneaker>()
+                val listSneakers = Requests.getAllSneakers()
+                val listIdFavSneakers = Requests.getIdFavSneakers()
 
-                updatestate(_state.value.copy(sneakers = listSneakers))
-Log.d("SearchSne", listSneakers.size.toString())
+                updatestate(_state.value.copy(sneakers = listSneakers,
+                    listIdFavSneakers = listIdFavSneakers))
+                Log.d("SearchSne", listSneakers.size.toString())
                 Log.d("кроссовки", listSneakers.toString())
                 Log.d("категории", listCategory.toString())
             } catch (e: Exception) {
@@ -49,4 +52,32 @@ Log.d("SearchSne", listSneakers.size.toString())
         }
     }
 
+    fun clickFavIcon(sneaker: Sneaker) {
+        if(state.listIdFavSneakers.contains(sneaker.id_sneaker)) deleteFav(sneaker.id_sneaker)
+        else addFav(sneaker.id_sneaker)
+    }
+
+    fun deleteFav(sneakerId: String) {
+        viewModelScope.launch {
+            try {
+                Requests.deleteFavItem(sneakerId)
+                Log.d("удаление из избранного", "ок")
+                getData()
+            } catch (e: Exception) {
+                Log.d("удаление из избранного | ошибка", e.message.toString())
+            }
+        }
+    }
+
+    fun addFav(sneakerId: String) {
+        viewModelScope.launch {
+            try {
+                Requests.addSneakerInFav(sneakerId)
+                Log.d("добавление в избранное", "ок")
+                getData()
+            } catch (e: Exception) {
+                Log.d("добавление в избранное | ошибка", e.message.toString())
+            }
+        }
+    }
 }

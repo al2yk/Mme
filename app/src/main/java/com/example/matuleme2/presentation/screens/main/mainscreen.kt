@@ -68,10 +68,9 @@ fun MainScreen(controller: NavHostController) {
 
     val vm = viewModel { mainviewmodel() }
     val state = vm.state
-    var isLiked by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        vm.getData(controller)
+        vm.getData()
     }
 
     Column(
@@ -110,40 +109,9 @@ fun MainScreen(controller: NavHostController) {
                     )
 
                     BagWithRed()
-                    /*
-                                        //Белая кнопка с корзиной
-                                        Box(modifier = Modifier
-                                            .align(Alignment.TopEnd)
-                                            .clip(CircleShape)
-                                            .size(44.dp)
-                                            .background(Color.White)
-                                            .clickable {}
-                                        ) {
-                                            Icon(
-                                                painter = painterResource(R.drawable.bag),
-                                                contentDescription = "", modifier = Modifier.align(Alignment.Center)
-                                            )
-                                            Box(
-                                                contentAlignment = Alignment.TopEnd,
-                                                modifier = Modifier
-                                                    .size(44.dp)
-                                                    .padding(end = 2.dp, top = 3.dp)
-                                            ) {
-                                                Icon(
-                                                    painter = painterResource(R.drawable.ellipse), tint = Color.Red,
-                                                    contentDescription = "", modifier = Modifier
-                                                        .size(8.dp)
-                                                        .align(Alignment.TopEnd)
-                                                )
-                                            }
-
-
-                                        }*/
                 }
 
                 Spacer(modifier = Modifier.height(19.dp))
-
-
                 //Поиск + синяя кнопка с фильтрами?
                 Box(modifier = Modifier.fillMaxWidth())
                 {
@@ -275,7 +243,7 @@ fun MainScreen(controller: NavHostController) {
                 }
                 Spacer(modifier = Modifier.height(24.dp))
 
-                TextAndAll("Популярное", FontWeight.Medium, controller){
+                TextAndAll("Популярное", FontWeight.Medium, controller) {
                     vm.updatestate(
                         state.copy(
                             viewState = MainScreenViewState.Popular
@@ -294,7 +262,9 @@ fun MainScreen(controller: NavHostController) {
                         verticalArrangement = Arrangement.spacedBy(15.dp)
                     ) {
                         items(state.sneakers.filter { it.is_popular }.take(2)) { sneaker ->
-                            SneakerItem(sneaker)
+                            SneakerItem(sneaker, state.listIdFavSneakers.contains(sneaker.id_sneaker)) {
+                                vm.clickFavIcon(sneaker)
+                            }
                             /*Box(
                                 modifier = Modifier
                                     .clip(shape = RoundedCornerShape(15.dp))
@@ -435,7 +405,7 @@ fun MainScreen(controller: NavHostController) {
                     }*/
                 }
                 Spacer(modifier = Modifier.height(29.dp))
-                TextAndAll("Акции", FontWeight.SemiBold, controller){
+                TextAndAll("Акции", FontWeight.SemiBold, controller) {
 
                 }
                 Spacer(modifier = Modifier.height(20.dp))
@@ -507,7 +477,9 @@ fun MainScreen(controller: NavHostController) {
                         state.sneakers.filter { it.id_category == state.selectedCategory.id_category }
                     if (state.selectedCategory.category == "Все") listSneaker = state.sneakers
                     items(listSneaker) { sneaker ->
-                        SneakerItem(sneaker)
+                        SneakerItem(sneaker, state.listIdFavSneakers.contains(sneaker.id_sneaker)) {
+                            vm.clickFavIcon(sneaker)
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))
@@ -517,7 +489,7 @@ fun MainScreen(controller: NavHostController) {
             MainScreenViewState.Popular -> {
                 //контейнер с кнопкой назад "Популярное" и фав
 
-                TopBar(controller,"Популярное", FontWeight.Medium){ Heart()}
+                TopBar(controller, "Популярное", FontWeight.Medium) { Heart() }
 
                 Spacer(modifier = Modifier.height(30.dp))
 
@@ -530,7 +502,9 @@ fun MainScreen(controller: NavHostController) {
                         var listSneaker =
                             state.sneakers
                         items(listSneaker) { sneaker ->
-                            SneakerItem(sneaker)
+                            SneakerItem(sneaker, state.listIdFavSneakers.contains(sneaker.id_sneaker)) {
+                                vm.clickFavIcon(sneaker)
+                            }
                         }
                     }
 

@@ -1,15 +1,16 @@
 package com.example.matuleme2.presentation.screens.favourite
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,10 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.matuleme2.presentation.screens.components.Heart
 import com.example.matuleme2.presentation.screens.components.TopBar
-import com.example.matuleme2.presentation.screens.components.iconback
-import com.example.matuleme2.presentation.screens.main.categories.CategoryViewModel
-import com.example.matuleme2.presentation.ui.theme.text
-import com.example.matuleme2.presentation.ui.theme.textfam
+import com.example.matuleme2.presentation.screens.main.components.SneakerItem
 
 
 @Preview
@@ -37,6 +35,10 @@ fun FavView(controller: NavHostController) {
     val vm = viewModel { FavViewModel() }
     val state = vm.state
 
+    LaunchedEffect(Unit) {
+        vm.getData()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,7 +46,19 @@ fun FavView(controller: NavHostController) {
     ) {
         //контейнер с кнопкой назад
         TopBar(controller,"Избранное", FontWeight.SemiBold){ Heart() }
-
         Spacer(modifier = Modifier.height(35.dp))
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            verticalArrangement = Arrangement.spacedBy(15.dp)
+        ) {
+            val listSneaker =
+                state.sneakers.filter { state.idFavSneakers.contains(it.id_sneaker) }
+            items(listSneaker) { sneaker ->
+                SneakerItem(sneaker, state.idFavSneakers.contains(sneaker.id_sneaker)) {
+                    vm.clickFavIcon(sneaker)
+                }
+            }
+        }
     }
 }

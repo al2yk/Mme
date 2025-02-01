@@ -17,33 +17,24 @@ import androidx.navigation.NavHostController
 import com.example.matuleme2.R
 import com.example.matuleme2.presentation.ui.theme.background
 
-
-//@Preview
-//@Composable
-//fun Preview() {
-//    iconback()
-//}
-
+//Иконка Назад
 @SuppressLint("RestrictedApi")
 @Composable
 fun iconback(controller: NavHostController) {
-        Box(modifier = Modifier
+    Box(
+        modifier = Modifier
             .clip(CircleShape)
             .size(44.dp)
             .background(background)
             .clickable {
                 //ДОПИСАТЬ ТО ЧТО, ЕСЛИ ПРЕДЫДУЩАЯ СПЛЭШ - НЕ ВОЗВРАЩАТЬСЯ
-                if(controller.currentBackStack.value.size != 1) {
+                if (controller.currentBackStack.value.size != 1) {
                     controller.navigateUp()
-                }
-
-
-            }, contentAlignment = Alignment.TopStart
+                }}, contentAlignment = Alignment.TopStart)
+    {
+        Icon(
+            painter = painterResource(R.drawable.back),
+            contentDescription = "", modifier = Modifier.align(Alignment.Center)
         )
-        {
-            Icon(
-                painter = painterResource(R.drawable.back),
-                contentDescription = "", modifier = Modifier.align(Alignment.Center)
-            )
-        }
+    }
 }

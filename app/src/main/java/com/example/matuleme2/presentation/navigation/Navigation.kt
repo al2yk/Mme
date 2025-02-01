@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.matuleme2.presentation.screens.favourite.FavView
 import com.example.matuleme2.presentation.screens.forgotpassword.ForgotPasswordView
 import com.example.matuleme2.presentation.screens.main.MainScreen
 import com.example.matuleme2.presentation.screens.main.categories.CategoryView
@@ -51,8 +52,9 @@ fun Navigation(controller: NavHostController, visibleBar: MutableState<Boolean>)
             visibleBar.value = false
             ForgotPasswordView(controller)
         }
-        composable(NavigationRoutes.OTP){
-            OTPCheckView(controller)
+        composable(NavigationRoutes.OTP + "/{userEmail}") { arg ->
+            val userEmail = arg.arguments?.getString("userEmail")
+            OTPCheckView(controller, userEmail?:"")
         }
         composable(NavigationRoutes.SIDEMENU){
             visibleBar.value = false
@@ -80,10 +82,13 @@ fun Navigation(controller: NavHostController, visibleBar: MutableState<Boolean>)
         composable(NavigationRoutes.SEARCH){
             SearchView(controller)
             visibleBar.value = false
-
         }
         composable(NavigationRoutes.NOTIFICATION){
             NotificationView(controller)
+        }
+        composable(NavigationRoutes.FAVOURITE){
+            visibleBar.value = true
+            FavView(controller)
         }
 
     }
