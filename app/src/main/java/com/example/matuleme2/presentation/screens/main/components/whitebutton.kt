@@ -20,6 +20,7 @@ import com.example.matuleme2.presentation.ui.theme.subtextdark
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
+//Отризованный белый контейнер под надписью Категории
 @Composable
 fun WhiteButtonMainScreen(category: Category, isSelected: Boolean, moveTo: (Category) -> Unit) {
 
@@ -41,5 +42,4 @@ fun WhiteButtonMainScreen(category: Category, isSelected: Boolean, moveTo: (Cate
             fontWeight = FontWeight.Normal
         )
     }
-
 }

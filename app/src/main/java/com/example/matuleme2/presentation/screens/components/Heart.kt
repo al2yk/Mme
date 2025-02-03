@@ -15,10 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.matuleme2.R
+import javax.annotation.Untainted
 
 //Круг с сердцем
 @Composable
-fun Heart() {
+fun Heart(moveTo:()->Unit) {
     Box(modifier = Modifier.fillMaxWidth()) {
         Box(
             modifier = Modifier
@@ -26,7 +27,9 @@ fun Heart() {
                 .clip(CircleShape)
                 .size(44.dp)
                 .background(Color.White)
-                .clickable {}
+                .clickable {
+                    moveTo()
+                }
         ) {
             Icon(
                 painter = painterResource(R.drawable.favprofile),

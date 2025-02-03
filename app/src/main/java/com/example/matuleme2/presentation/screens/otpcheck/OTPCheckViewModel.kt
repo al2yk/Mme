@@ -1,24 +1,26 @@
 package com.example.matuleme2.presentation.screens.otpcheck
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
-import com.example.matuleme2.data.states.ForgatePasswordState
 import com.example.matuleme2.domain.Constants
 import com.example.matuleme2.presentation.navigation.NavigationRoutes
-import com.example.matuleme2.presentation.validation.isEmailValid
+import com.example.matuleme2.presentation.ui.theme.red
 import io.github.jan.supabase.gotrue.OtpType
 import io.github.jan.supabase.gotrue.auth
-
 import kotlinx.coroutines.launch
 
 class OTPCheckViewModel(private val controller: NavHostController) : ViewModel() {
 
+    //Отправка ОТП кода
     fun checkOtpCode(email: String, code: String) {
+        var verificationSuccess = false
         viewModelScope.launch {
             try {
                 Log.d("код", code)
@@ -27,18 +29,28 @@ class OTPCheckViewModel(private val controller: NavHostController) : ViewModel()
                     type = OtpType.Email.EMAIL, email = email,
                     token = code
                 )
-                //ДОДЕЛАТЬ: добавить экран смены пароля, повторив стиль с прошлых
-                //экранов (в макете его нет)
-                controller.navigate(NavigationRoutes.SIGNIN) {
-                    popUpTo(NavigationRoutes.OTP) {
-                        inclusive = false
-                    }
-                }
+                verificationSuccess = true
+
                 Log.d("проверка кода", "Всё хорошо")
             } catch (e: Exception) {
+                verificationSuccess = false
                 Log.d("проверка кода | ошибка", e.message.toString())
             }
         }
+        if(verificationSuccess){
+                //ДОДЕЛАТЬ: добавить экран смены пароля, повторив стиль с прошлых
+                // экранов (в макете его нет)
+            controller.navigate(NavigationRoutes.SIGNIN) {
+                popUpTo(NavigationRoutes.OTP) {
+                    inclusive = true
+                }
+            }
+        }
+        else{
+            var colorInputView: Color = red
+
+        }
+
     }
 
     //отправка otp если забыл пароль

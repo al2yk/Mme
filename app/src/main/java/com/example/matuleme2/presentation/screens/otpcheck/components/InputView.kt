@@ -1,21 +1,14 @@
-package com.example.matuleme2.presentation.screens.otpcheck
+package com.example.matuleme2.presentation.screens.otpcheck.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -30,23 +23,9 @@ import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.red
 import com.example.matuleme2.presentation.ui.theme.text
 
-fun NextFocus(textList: List<MutableState<TextFieldValue>>, requesteList: List<FocusRequester>) {
-    for (index in textList.indices) {
-        if (textList[index].value.text == "") {
-            if (index < textList.size) {
-                requesteList[index].requestFocus()
-                break
-            }
-        }
-    }
-}
-//ОДНА ЯЧЕЙКА
+//ОДНА ЯЧЕЙКА Для ввода OTP
 @Composable
-fun InputView(
-    value: String,
-    focusRequester: FocusRequester,
-    onValue: (String) -> Unit,
-) {
+fun InputView(value: String,focusRequester: FocusRequester,onValue: (String) -> Unit){
     /* BasicTextField(
          readOnly = false, value = value, onValueChange = onValueChange,
          modifier = Modifier
@@ -115,40 +94,6 @@ fun InputView(
                         )*/
         )
     }
-
-}
-//СТРОКА ВВОДА КОДА
-@Composable
-fun InputCode(vm: OTPCheckViewModel, email: String) {
-    val codeLength = 6 // Длина кода
-    val code = remember { mutableStateListOf(*Array(codeLength) { "" }) }
-    val focusRequesters = List(codeLength) { FocusRequester() }
-
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Transparent)
-        ) {
-            Row(modifier = Modifier.align(Alignment.Center)) {
-                for (i in 0 until codeLength) {
-                    InputView(code[i], focusRequesters[i]) { newValue ->
-                        if (newValue.length <= 1) {
-                            code[i] = newValue
-                            if (newValue.isNotEmpty() && i < codeLength - 1) {
-                                focusRequesters[i + 1].requestFocus()
-                            } else if (newValue.isEmpty() && i > 0) {
-                                focusRequesters[i - 1].requestFocus()
-                            }
-                        }
-                        if (code.all { it.isNotEmpty() }) {
-                            vm.checkOtpCode(email, code.joinToString(""))
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 /*@OptIn(ExperimentalComposeUiApi::class)
@@ -201,7 +146,7 @@ fun ContentView(
         delay(300)
         requesteList[0].requestFocus()
     })
-}*/
+}
 
 fun correctOtp(textList: List<MutableState<TextFieldValue>>, onVerifyCode:((success:Boolean)->Unit)?=null){
     var code = ""
@@ -213,26 +158,4 @@ fun correctOtp(textList: List<MutableState<TextFieldValue>>, onVerifyCode:((succ
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/

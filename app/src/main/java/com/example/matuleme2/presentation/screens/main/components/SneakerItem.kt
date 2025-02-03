@@ -44,10 +44,12 @@ import com.example.matuleme2.R
 import com.example.matuleme2.data.models.Sneaker
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.background
+import com.example.matuleme2.presentation.ui.theme.block
 import com.example.matuleme2.presentation.ui.theme.red
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
+//Контейнер с кросовком
 @Composable
 fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit) {
     var height by remember { mutableStateOf(0.dp) }
@@ -60,42 +62,34 @@ fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit) 
             .heightIn(min = height)
             .onSizeChanged { height = with(density) { it.height.toDp() } }
     ) {
+        //цвет иконки
         var favIconColor: Color = text
+        //Какая иконка используется
         var favIconRes = R.drawable.favprofile
-        if(isFavourite) {
+
+        //если данный кросовок - фэйворит - цвет красный иконка соответсвующая
+        if (isFavourite) {
             favIconColor = red
             favIconRes = R.drawable.icon_is_fav
         }
+
         Box(modifier = Modifier.padding(top = 9.dp, start = 9.dp)) {
             Box(
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .clip(CircleShape)
                     .size(28.dp)
-                    .background(Color.White)
+                    .background(block)
                     .clickable {
                         onClickFav()
                     }
             ) {
-/*                                    IconButton(onClick = { isLiked = !isLiked }) {
-                                        val imageVector = if (isLiked) {
-                                            Icons.Filled.Favorite // Иконка заполненного сердца
-                                        } else {
-                                            Icons.Outlined.Favorite // Иконка пустого сердца
-                                        }
-
-                                        Icon(
-                                            imageVector = imageVector,
-                                            contentDescription = "Like",
-                                            tint = if (isLiked) Color.Red else Color.Black
-                                        )
-                                    }*/
                 Icon(
                     painter = painterResource(favIconRes), tint = favIconColor,
                     contentDescription = "",
-                    modifier = Modifier.align(Alignment.Center).size(15.dp),
-
-                    )
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(15.dp))
             }
         }
 
@@ -136,6 +130,8 @@ fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit) 
             )
             Text(sneaker.small_title)
             Spacer(modifier = Modifier.height(14.dp))
+
+            //Цена
             Row(verticalAlignment = Alignment.Bottom) {
                 Text("₽${String.format("%.2f", sneaker.cost)}")
                 Box(
@@ -161,9 +157,7 @@ fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit) 
                         )
                     }
                 }
-
             }
-
         }
     }
 }

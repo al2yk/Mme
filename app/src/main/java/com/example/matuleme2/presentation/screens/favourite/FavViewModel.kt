@@ -15,6 +15,8 @@ class FavViewModel:ViewModel() {
 
     fun updatestate(newstate: FavState){_state.value = newstate}
 
+
+    //Получить данные с базы(свои фав)
     fun getData() {
         viewModelScope.launch {
             try {
@@ -34,11 +36,19 @@ class FavViewModel:ViewModel() {
         }
     }
 
+
+    //Действия при нажатии иконки фав
     fun clickFavIcon(sneaker: Sneaker) {
+
+        //Если возращается тру(То есть в фав есть кросовок) - удаляется
         if(state.idFavSneakers.contains(sneaker.id_sneaker)) deleteFav(sneaker.id_sneaker)
+
+        //Иначе добавляется ( то есть отсутсвует)
         else addFav(sneaker.id_sneaker)
     }
 
+
+    //Удаление из таблицы фав кросовок
     fun deleteFav(sneakerId: String) {
         viewModelScope.launch {
             try {
@@ -51,6 +61,7 @@ class FavViewModel:ViewModel() {
         }
     }
 
+    //Добавление в базу кросовок при нажатии
     fun addFav(sneakerId: String) {
         viewModelScope.launch {
             try {

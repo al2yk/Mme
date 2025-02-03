@@ -52,6 +52,8 @@ class mainviewmodel() :ViewModel() {
         }
     }
 
+    //Эти функции повторяются. Нужно вынести их и истользовать, а не у каждого экрана
+
     fun clickFavIcon(sneaker: Sneaker) {
         if(state.listIdFavSneakers.contains(sneaker.id_sneaker)) deleteFav(sneaker.id_sneaker)
         else addFav(sneaker.id_sneaker)
@@ -80,4 +82,6 @@ class mainviewmodel() :ViewModel() {
             }
         }
     }
+
+
 }

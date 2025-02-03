@@ -35,9 +35,7 @@ fun FavView(controller: NavHostController) {
     val vm = viewModel { FavViewModel() }
     val state = vm.state
 
-    LaunchedEffect(Unit) {
-        vm.getData()
-    }
+    LaunchedEffect(Unit) {vm.getData()}
 
     Column(
         modifier = Modifier
@@ -45,15 +43,20 @@ fun FavView(controller: NavHostController) {
             .padding(horizontal = 20.dp, vertical = 60.dp)
     ) {
         //контейнер с кнопкой назад
-        TopBar(controller,"Избранное", FontWeight.SemiBold){ Heart() }
+        TopBar(controller,"Избранное", FontWeight.SemiBold){ Heart(){} }
         Spacer(modifier = Modifier.height(35.dp))
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             horizontalArrangement = Arrangement.spacedBy(15.dp),
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
+
+            //лист фав кросовок
             val listSneaker =
                 state.sneakers.filter { state.idFavSneakers.contains(it.id_sneaker) }
+            // фильтр, те которые в базе фав
+
             items(listSneaker) { sneaker ->
                 SneakerItem(sneaker, state.idFavSneakers.contains(sneaker.id_sneaker)) {
                     vm.clickFavIcon(sneaker)

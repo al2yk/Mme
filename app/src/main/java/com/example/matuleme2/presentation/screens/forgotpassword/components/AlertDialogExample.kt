@@ -23,6 +23,7 @@ import com.example.matuleme2.R
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.textfam
 
+//Диалоговое окно после Forgot Password
 @Composable
 fun AlertDialogExample(
     onDismissRequest: () -> Unit,
@@ -31,6 +32,7 @@ fun AlertDialogExample(
     dialogText: String,
     icon: Painter,
 ) {
+
     AlertDialog(
         icon = {
             Box(modifier = Modifier
@@ -70,7 +72,6 @@ fun AlertDialogExample(
             onDismissRequest()
         },
         shape = RoundedCornerShape(15.dp),
-
         confirmButton = {},
         dismissButton = {}
     )

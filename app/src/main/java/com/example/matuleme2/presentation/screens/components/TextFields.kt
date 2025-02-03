@@ -28,7 +28,7 @@ import com.example.matuleme2.presentation.ui.theme.hint
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
-//Чтобы скрыть
+//Обычное текстовое поле Чтобы скрыть password
 @Composable
 fun TextFieldSignInEmail(value: String, placeholder: String,enabled:Boolean,textcolor:Color, onvaluechange: (String) -> Unit) {
     TextField(
@@ -61,6 +61,7 @@ fun TextFieldSignInEmail(value: String, placeholder: String,enabled:Boolean,text
     )
 }
 
+//Обычное текстовое поле
 @Composable
 fun TextFieldSignInPass(value: String, placeholder: String, onvaluechange: (String) -> Unit) {
 

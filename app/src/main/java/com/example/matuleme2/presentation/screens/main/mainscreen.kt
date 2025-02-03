@@ -52,6 +52,7 @@ import com.example.matuleme2.presentation.screens.main.components.SneakerItem
 import com.example.matuleme2.presentation.screens.main.components.TextAndAll
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.background
+import com.example.matuleme2.presentation.ui.theme.block
 import com.example.matuleme2.presentation.ui.theme.hint
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
@@ -79,9 +80,10 @@ fun MainScreen(controller: NavHostController) {
             .fillMaxSize()
     ) {
         when (state.viewState) {
+            //Главный экран
             MainScreenViewState.Main -> {
-                //Верхняя шапка
 
+                //Верхняя шапка
                 Box(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -108,20 +110,23 @@ fun MainScreen(controller: NavHostController) {
                         modifier = Modifier.align(Alignment.Center)
                     )
 
+                    //Корзина сверху
                     BagWithRed()
                 }
 
                 Spacer(modifier = Modifier.height(19.dp))
+
                 //Поиск + синяя кнопка с фильтрами?
                 Box(modifier = Modifier.fillMaxWidth())
                 {
 
+                    //Поиск -> при клике переходим на страницу поиска
                     Box(modifier = Modifier
                         .fillMaxWidth()
                         .padding(end = 70.dp)
                         .clip(RoundedCornerShape(15.dp))
                         .shadow(3.dp)
-                        .background(background)
+                        .background(block)
                         .align(Alignment.TopCenter)
                         .clickable {
                             controller.navigate(NavigationRoutes.SEARCH)
@@ -144,45 +149,8 @@ fun MainScreen(controller: NavHostController) {
                         )
 
                     }
-                    /*
-                    TextField(
-                        value = state.search,
-                        onValueChange = { vm.updatestate(state.copy(search = it)) },
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.TopCenter)
-                            .padding(end = 80.dp)
-                            .height(52.dp)
-                            .shadow(3.dp, shape = RoundedCornerShape(15.dp)),
-                        colors = TextFieldDefaults.colors(
-                            unfocusedContainerColor = background,
-                            unfocusedTextColor = text,
-                            focusedContainerColor = background,
-                            focusedTextColor = text,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent,
-                            disabledIndicatorColor = Color.Transparent
-                        ),
-                        shape = RoundedCornerShape(15.dp),
-                        leadingIcon = {
-                            Icon(
-                                painter = painterResource(R.drawable.searchicon),
-                                contentDescription = "",
-                                modifier = Modifier.padding(start = 25.dp)
-                            )
-                        }, placeholder = {
-                            Text(
-                                "Поиск",
-                                color = hint,
-                                fontSize = 16.sp,
-                                fontFamily = textfam,
-                                fontWeight = FontWeight.W600,
-                                modifier = Modifier.padding(start = 10.dp)
-                            )
-                        }
-                    )
-                    */
+
+                    //Круг синий с фильтрами?
                     Box(modifier = Modifier
                         .align(Alignment.TopEnd)
                         .clip(CircleShape)
@@ -218,31 +186,14 @@ fun MainScreen(controller: NavHostController) {
                             )
 
                         }
-                        /*Text(
-                            "Категории", fontSize = 16.sp,
-                            fontFamily = textfam,
-                            fontWeight = FontWeight.Bold,
-                            color = text
-                        )
-                        Spacer(modifier = Modifier.height(20.dp))
-                        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                            items(state.categories) { category ->
-                                WhiteButtonMainScreen(
-                                    category,
-                                    category == vm.state.selectedCategory
-                                ) {//Реализоваать переход на кате}
-                                    vm.updatestate(state.copy(selectedCategory = it))
-                                    vm.updatestate(state.copy(viewState = MainScreenViewState.Category))
-                                }
-
-                            }
-
-                        }*/
                     }
 
                 }
+
                 Spacer(modifier = Modifier.height(24.dp))
 
+
+                //Популярные     все
                 TextAndAll("Популярное", FontWeight.Medium, controller) {
                     vm.updatestate(
                         state.copy(
@@ -253,167 +204,39 @@ fun MainScreen(controller: NavHostController) {
 
                 Spacer(modifier = Modifier.height(30.dp))
 
-                Row(
-                    modifier = Modifier
-                ) {
+                //Две пары кросовок
+                Row(modifier = Modifier) {
                     LazyVerticalGrid(
+                        //Две колонки
                         columns = GridCells.Fixed(2),
+                        //Расстояние между элементами
                         horizontalArrangement = Arrangement.spacedBy(15.dp),
                         verticalArrangement = Arrangement.spacedBy(15.dp)
                     ) {
                         items(state.sneakers.filter { it.is_popular }.take(2)) { sneaker ->
-                            SneakerItem(sneaker, state.listIdFavSneakers.contains(sneaker.id_sneaker)) {
+                            SneakerItem(
+                                sneaker,
+                                state.listIdFavSneakers.contains(sneaker.id_sneaker)
+                            ) {
+                                //При нажатии на клавишу сердца запускается функция
+                                // выбора delete или insert в базу
                                 vm.clickFavIcon(sneaker)
                             }
-                            /*Box(
-                                modifier = Modifier
-                                    .clip(shape = RoundedCornerShape(15.dp))
-                                    .background(background)
-                                    .padding(top = 3.dp, start = 9.dp)
-                            ) {
-                                //Иконка фав
-                                Box(modifier = Modifier.padding(top = 9.dp, start = 9.dp)) {
-                                    Box(
-                                        modifier = Modifier
-                                            .align(Alignment.TopStart)
-                                            .clip(CircleShape)
-                                            .size(28.dp)
-                                            .background(Color.White)
-                                            .clickable {
-
-                                            }
-                                    ) {
-//                                    IconButton(onClick = { isLiked = !isLiked }) {
-//                                        val imageVector = if (isLiked) {
-//                                            Icons.Filled.Favorite // Иконка заполненного сердца
-//                                        } else {
-//                                            Icons.Outlined.Favorite // Иконка пустого сердца
-//                                        }
-//
-//                                        Icon(
-//                                            imageVector = imageVector,
-//                                            contentDescription = "Like",
-//                                            tint = if (isLiked) Color.Red else Color.Black
-//                                        )
-//                                    }
-                                        Icon(
-                                            painter = painterResource(R.drawable.favprofile),
-                                            contentDescription = "",
-                                            modifier = Modifier.align(Alignment.Center)
-                                        )
-                                    }
-                                }
-
-                                Column(
-                                    modifier = Modifier
-                                        .padding(top = 34.dp, bottom = 9.dp)
-                                        .padding(horizontal = 9.dp)
-                                        .fillMaxHeight()
-                                ) {
-
-                                    //загрузка картинки
-                                    val imgState = rememberAsyncImagePainter(
-                                        model = ImageRequest.Builder(LocalContext.current)
-                                            .data(sneaker.image)
-                                            .size(Size.ORIGINAL).build()
-                                    ).state
-                                    if (imgState is AsyncImagePainter.State.Error) {
-                                        CircularProgressIndicator()
-                                    }
-                                    if (imgState is AsyncImagePainter.State.Success) {
-                                        Image(
-                                            modifier = Modifier
-                                                .fillMaxWidth(1f)
-                                                .clip(RoundedCornerShape(15.dp)),
-                                            painter = imgState.painter,
-                                            contentDescription = "",
-                                            contentScale = ContentScale.Crop
-                                        )
-                                    }
-
-                                    Spacer(modifier = Modifier.height(12.dp))
-                                    Text(
-                                        "BEST SELLER",
-                                        fontFamily = textfam,
-                                        fontWeight = FontWeight.Medium,
-                                        fontSize = 12.sp,
-                                        color = accent
-                                    )
-                                    Text(sneaker.small_title)
-                                    Spacer(modifier = Modifier.height(14.dp))
-                                    Row() {
-                                        Text("₽${String.format("%.2f", sneaker.cost)}")
-                                        Box(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            contentAlignment = Alignment.TopEnd
-                                        ) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .size(34.dp)
-                                                    .clip(
-                                                        RoundedCornerShape(
-                                                            topStart = 15.dp,
-                                                            bottomEnd = 15.dp
-                                                        )
-                                                    )
-                                                    .background(accent)
-                                            ) {
-                                                Icon(
-                                                    painter = painterResource(R.drawable.plus),
-                                                    contentDescription = "",
-                                                    modifier = Modifier.align(Alignment.Center),
-                                                    tint = Color.White
-                                                )
-                                            }
-                                        }
-
-                                    }
-
-                                }
-                            }*/
                         }
                     }
-                    /*LazyColumn {
-                        items(state.sneakers) { sneaker ->
-                            Box(modifier = Modifier
-                                .clip(shape = RoundedCornerShape(15.dp))
-                                .background(accent)
-                                .padding(top = 3.dp, start = 9.dp)
-                            ) {
-                                Box(modifier = Modifier
-                                    .align(Alignment.TopStart)
-                                    .clip(CircleShape)
-                                    .size(28.dp)
-                                    .background(Color.White)
-                                    .clickable {
-
-                                    })
-                                {
-                                    Icon(
-                                        painter = painterResource(R.drawable.favprofile),
-                                        contentDescription = "", modifier = Modifier.align(Alignment.Center)
-                                    )
-                                }
-                                Column(modifier = Modifier.padding(top = 34.dp, bottom = 9.dp)
-                                    .padding(horizontal = 9.dp)) {
-
-                                    Text(sneaker.small_title)
-                                    Text(sneaker.cost.toString())
-                                }
-                            }
-                        }
-                    }*/
                 }
+
                 Spacer(modifier = Modifier.height(29.dp))
-                TextAndAll("Акции", FontWeight.SemiBold, controller) {
 
-                }
+                //Акции   все. При нажатии нет страницы
+                TextAndAll("Акции", FontWeight.SemiBold, controller) {}
+
                 Spacer(modifier = Modifier.height(20.dp))
-                Box(
-                    modifier = Modifier
+
+                //контейнер с акцией
+                Box(modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(15.dp))
-                )
+                        .clip(RoundedCornerShape(15.dp)))
                 {
                     Image(
                         modifier = Modifier.fillMaxSize(),
@@ -426,9 +249,11 @@ fun MainScreen(controller: NavHostController) {
 
 
             }
-
+            //Экран Категории
             MainScreenViewState.Category -> {
+
                 Box(modifier = Modifier.fillMaxWidth()) {
+                    //Иконка назад
                     iconback(controller)
                     Text(
                         state.selectedCategory.category,
@@ -446,25 +271,6 @@ fun MainScreen(controller: NavHostController) {
                         RowCategory(state, vm) {
                             vm.updatestate(state.copy(selectedCategory = it))
                         }
-                        /*Text(
-                            "Категории", fontSize = 16.sp,
-                            fontFamily = textfam,
-                            fontWeight = FontWeight.Bold,
-                            color = text
-                        )
-                        Spacer(modifier = Modifier.height(20.dp))
-                        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                            items(state.categories) { category ->
-                                WhiteButtonMainScreen(
-                                    category,
-                                    category == vm.state.selectedCategory
-                                ) { //Реализоваать переход на кате
-                                    vm.updatestate(state.copy(selectedCategory = it))
-                                }
-
-                            }
-
-                        }*/
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))
@@ -485,15 +291,23 @@ fun MainScreen(controller: NavHostController) {
                 Spacer(modifier = Modifier.height(30.dp))
 
             }
-
+            //Экран популярные
             MainScreenViewState.Popular -> {
                 //контейнер с кнопкой назад "Популярное" и фав
 
-                TopBar(controller, "Популярное", FontWeight.Medium) { Heart() }
+                TopBar(controller, "Популярное", FontWeight.Medium) {
+                    Heart() {
+                        controller.navigate(
+                            NavigationRoutes.FAVOURITE
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(30.dp))
 
+                //Вывод кросовок
                 Row() {
+
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         horizontalArrangement = Arrangement.spacedBy(15.dp),
@@ -502,7 +316,10 @@ fun MainScreen(controller: NavHostController) {
                         var listSneaker =
                             state.sneakers
                         items(listSneaker) { sneaker ->
-                            SneakerItem(sneaker, state.listIdFavSneakers.contains(sneaker.id_sneaker)) {
+                            SneakerItem(
+                                sneaker,
+                                state.listIdFavSneakers.contains(sneaker.id_sneaker)
+                            ) {
                                 vm.clickFavIcon(sneaker)
                             }
                         }

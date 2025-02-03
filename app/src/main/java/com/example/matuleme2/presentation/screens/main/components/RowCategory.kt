@@ -17,6 +17,7 @@ import com.example.matuleme2.presentation.screens.main.mainviewmodel
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
+//Категории в строку
 @Composable
 fun RowCategory(
     state: MainScreenSearchState, vm: mainviewmodel, isSelected: Boolean = true,
@@ -33,6 +34,8 @@ fun RowCategory(
         items(state.categories) { category ->
             var isSelectedItem = category == vm.state.selectedCategory
             if (!isSelected) isSelectedItem = false
+
+            //Отризованный белый контейнер под надписью
             WhiteButtonMainScreen(
                 category,
                 isSelectedItem

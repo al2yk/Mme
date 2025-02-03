@@ -46,6 +46,7 @@ fun ForgotPasswordView(
             .padding(horizontal = 20.dp, vertical = 60.dp)
     ) {
 
+        //иконка назад
         iconback(controller)
         Spacer(modifier = Modifier.height(20.dp))
         Text(
@@ -70,19 +71,27 @@ fun ForgotPasswordView(
 
         Spacer(modifier = Modifier.height(40.dp))
 
+
+        //текстовое поле для ввода email
         TextFieldSignInEmail(state.email, "xyz@gmail.com", true, hint) {
             viewModel.updatestate(state.copy(email = it))
         }
+
         Spacer(modifier = Modifier.height(40.dp))
+        //Кнопка отправить
         ButtonExit("Отправить") {
             viewModel.ForgotPasswordOTP(controller)
         }
-
+        //Если код отправился на почту ( dialog = true)
         if (state.dialog == true) {
+
+            //Диалоговое окно
             AlertDialogExample(
                 onDismissRequest =
                 {
                     viewModel.updatestate(state.copy(dialog = false))
+
+                    //передача состояния email на страничку otp
                     controller.navigate(NavigationRoutes.OTP + "/${state.email}")
                 },
                 onConfirmation = {
@@ -95,16 +104,4 @@ fun ForgotPasswordView(
             )
         }
     }
-
 }
-
-//AlertDialogExample(
-//onDismissRequest = { state.dialog = false },
-//onConfirmation = {
-//    state.dialog = false
-//    println("Confirmation registered")
-//},
-//dialogTitle = "Проверьте Ваш Email",
-//dialogText = "Мы отправили код восстановления пароля на вашу электронную почту.",
-//icon = painterResource(R.drawable.checkemailicon)
-//)

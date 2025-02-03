@@ -8,8 +8,6 @@ import androidx.navigation.compose.composable
 import com.example.matuleme2.presentation.screens.favourite.FavView
 import com.example.matuleme2.presentation.screens.forgotpassword.ForgotPasswordView
 import com.example.matuleme2.presentation.screens.main.MainScreen
-import com.example.matuleme2.presentation.screens.main.categories.CategoryView
-import com.example.matuleme2.presentation.screens.main.popular.PopularView
 import com.example.matuleme2.presentation.screens.notification.NotificationView
 import com.example.matuleme2.presentation.screens.onboarding.OnBoardingScreen
 import com.example.matuleme2.presentation.screens.otpcheck.OTPCheckView
@@ -65,14 +63,6 @@ fun Navigation(controller: NavHostController, visibleBar: MutableState<Boolean>)
         }
         composable(NavigationRoutes.EDITPROFILE){
             EditProfileView(controller)
-        }
-        composable(NavigationRoutes.POPULAR){
-            visibleBar.value = false
-            PopularView(controller)
-        }
-        composable(NavigationRoutes.CATEGORY){
-            visibleBar.value = false
-            CategoryView(controller)
         }
         composable(NavigationRoutes.PRODUCT){
             visibleBar.value = false

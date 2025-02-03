@@ -15,6 +15,7 @@ import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
+//Популярное          все..
 @Composable
 fun TextAndAll(isText: String, weightfont: FontWeight, controller: NavHostController, onClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxWidth()) {
