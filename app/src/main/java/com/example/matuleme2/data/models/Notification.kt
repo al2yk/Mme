@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class Notification(
     var id_notification: String,
     var title: String,
-    var discription: String,
+    var description: String,
     var date: String,
     var id_user: String
 )

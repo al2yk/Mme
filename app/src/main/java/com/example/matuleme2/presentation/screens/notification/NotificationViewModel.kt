@@ -22,13 +22,10 @@ class NotificationViewModel:ViewModel() {
     fun getNotification(){
         viewModelScope.launch {
             try {
-                val noti = Constants.supabase.from("Notification").select()
+                val noti = Constants.supabase.from("notifications").select()
                 {
                     filter {
-                        ilike(
-                            "id",
-                            "%${UserRepository.uuidCurrentUser}"
-                        )
+                        eq("id_user", UserRepository.uuidCurrentUser)
                     }
                 }.decodeList<Notification>()
 
@@ -37,7 +34,7 @@ class NotificationViewModel:ViewModel() {
 
             }
             catch (e:Exception){
-
+                Log.d("Плохо",e.message.toString())
             }
         }
     }
