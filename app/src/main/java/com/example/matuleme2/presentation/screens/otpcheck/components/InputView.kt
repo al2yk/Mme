@@ -8,6 +8,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -22,10 +23,11 @@ import androidx.compose.ui.unit.sp
 import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.red
 import com.example.matuleme2.presentation.ui.theme.text
+import kotlinx.coroutines.delay
 
 //ОДНА ЯЧЕЙКА Для ввода OTP
 @Composable
-fun InputView(value: String,focusRequester: FocusRequester,onValue: (String) -> Unit){
+fun InputView(ColorBorder:Color,value: String,focusRequester: FocusRequester,onValue: (String) -> Unit){
     /* BasicTextField(
          readOnly = false, value = value, onValueChange = onValueChange,
          modifier = Modifier
@@ -64,7 +66,7 @@ fun InputView(value: String,focusRequester: FocusRequester,onValue: (String) -> 
     ) {
         OutlinedTextField(
             value = value,
-            onValueChange = { onValue(it) },
+            onValueChange = { onValue(it)},
             singleLine = true,
             maxLines = 1, shape = RoundedCornerShape(5.dp),
             modifier = Modifier
@@ -72,7 +74,7 @@ fun InputView(value: String,focusRequester: FocusRequester,onValue: (String) -> 
                 .height(99.dp)
                 .focusRequester(focusRequester),
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = ColorBorder,
                 unfocusedContainerColor = background,
                 unfocusedTextColor = text,
                 focusedContainerColor = background,

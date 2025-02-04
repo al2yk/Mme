@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 
 
 class SearchViewModel : ViewModel() {
+
     private val _state = mutableStateOf(SearchState())
     val state: SearchState get() = _state.value
 

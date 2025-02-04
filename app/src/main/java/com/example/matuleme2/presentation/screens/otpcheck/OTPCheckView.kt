@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,6 +44,7 @@ fun OTPCheckView(controller: NavHostController, email: String) {
     }
 
     val vm = viewModel { OTPCheckViewModel(controller) }
+    var state = vm.state
 
     Column(
         modifier = Modifier
@@ -88,7 +90,8 @@ fun OTPCheckView(controller: NavHostController, email: String) {
         Spacer(modifier = Modifier.height(20.dp))
 
         //6 ячеек для ввода отп
-        InputCode(vm, email)
+        InputCode(state.ColorBoard,vm, email)
+
 
         Spacer(modifier = Modifier.height(20.dp))
 
