@@ -5,8 +5,10 @@ import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.matuleme2.presentation.screens.checkout.CheckOutView
 import com.example.matuleme2.presentation.screens.favourite.FavView
 import com.example.matuleme2.presentation.screens.forgotpassword.ForgotPasswordView
+import com.example.matuleme2.presentation.screens.generatepassword.GenPasswordView
 import com.example.matuleme2.presentation.screens.main.MainScreen
 import com.example.matuleme2.presentation.screens.notification.NotificationView
 import com.example.matuleme2.presentation.screens.onboarding.OnBoardingScreen
@@ -80,7 +82,12 @@ fun Navigation(controller: NavHostController, visibleBar: MutableState<Boolean>)
             visibleBar.value = true
             FavView(controller)
         }
-
+        composable(NavigationRoutes.GENERATEPASSWORD) {
+            GenPasswordView(controller)
+        }
+        composable(NavigationRoutes.CHECKOUT){
+            CheckOutView(controller)
+        }
     }
 
 }

@@ -19,6 +19,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImagePainter
@@ -37,6 +39,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.example.matuleme2.R
+import com.example.matuleme2.data.models.Sneaker
 import com.example.matuleme2.presentation.screens.components.BagWithRed
 import com.example.matuleme2.presentation.screens.components.Heart
 import com.example.matuleme2.presentation.screens.components.TopBar
@@ -55,6 +58,15 @@ fun Preview() {
 
 @Composable
 fun ProductView(controller: NavHostController) {
+
+    var vm = viewModel{ProductViewModel()}
+    var state  =vm.state
+
+    LaunchedEffect(Unit) {
+        vm.getData()
+    }
+
+    val ListSneakersProduct = state.Sneakers
     Column(
         modifier = Modifier
             .padding(horizontal = 20.dp, vertical = 60.dp)
@@ -63,7 +75,7 @@ fun ProductView(controller: NavHostController) {
         TopBar(controller, "Sneaker Shop", FontWeight.Medium) { BagWithRed() }
         Spacer(modifier = Modifier.height(26.dp))
         Text(
-            "dfgdf",
+            "",
             fontSize = 26.sp,
             fontFamily = textfam,
             fontWeight = FontWeight.Bold,
@@ -144,3 +156,4 @@ fun ProductView(controller: NavHostController) {
 
     }
 }
+

@@ -19,6 +19,7 @@ object NavigationRoutes {
     const val CATEGORY = "category"
     const val PRODUCT = "product"
     const val SEARCH = "search"
-
+    const val GENERATEPASSWORD = "genpassword"
+    const val CHECKOUT = "checkout"
 
 }

@@ -45,7 +45,7 @@ class OTPCheckViewModel(private val controller: NavHostController) : ViewModel()
                 //ДОДЕЛАТЬ: добавить экран смены пароля, повторив стиль с прошлых
                 // экранов (в макете его нет)
                 controller.navigate(NavigationRoutes.SIGNIN) {
-                    popUpTo(NavigationRoutes.OTP) {
+                    popUpTo(NavigationRoutes.GENERATEPASSWORD) {
                         inclusive = true
                     }
                 }

@@ -30,7 +30,6 @@ fun NotificationView(controller: NavHostController) {
     val state = vm.state
 
     LaunchedEffect(Unit) {
-        delay(1)
         vm.getNotification()
     }
 
