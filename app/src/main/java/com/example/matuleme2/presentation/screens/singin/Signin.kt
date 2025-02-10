@@ -91,7 +91,7 @@ fun Signin(controller: NavHostController, viewModel: SingInViewModel = hiltViewM
                 }
         )
         Spacer(modifier = Modifier.height(10.dp))
-        ButtonExit("Войти") {
+        ButtonExit(buttontext = "Войти") {
             viewModel.signIn(controller).toString()
         }
 

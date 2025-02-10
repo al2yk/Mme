@@ -21,7 +21,7 @@ import com.example.matuleme2.presentation.ui.theme.textfam
 
 //Обычная кнопка "Отправить" "Сохранить"
 @Composable
-fun ButtonExit(buttontext: String, onclick: () -> Unit) {
+fun ButtonExit(modifier: Modifier = Modifier, buttontext: String, onclick: () -> Unit ) {
 
     Button(
         onClick = {
@@ -31,7 +31,7 @@ fun ButtonExit(buttontext: String, onclick: () -> Unit) {
         colors = ButtonDefaults.buttonColors(
             contentColor = background,
             containerColor = accent
-        ), modifier = Modifier
+        ), modifier = modifier
             .fillMaxWidth()
             .height(55.dp)
     ) {

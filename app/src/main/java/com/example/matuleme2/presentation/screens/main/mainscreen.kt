@@ -216,12 +216,11 @@ fun MainScreen(controller: NavHostController) {
                         items(state.sneakers.filter { it.is_popular }.take(2)) { sneaker ->
                             SneakerItem(
                                 sneaker,
-                                state.listIdFavSneakers.contains(sneaker.id_sneaker)
-                            ) {
-                                //При нажатии на клавишу сердца запускается функция
-                                // выбора delete или insert в базу
-                                vm.clickFavIcon(sneaker)
-                            }
+                                state.listIdFavSneakers.contains(sneaker.id_sneaker),
+                                onClickFav = { vm.clickFavIcon(sneaker) },
+                                /*onClick = {controller.navigate("product/${sneaker.id_sneaker}")},*/
+                                )
+
                         }
                     }
                 }
@@ -234,9 +233,11 @@ fun MainScreen(controller: NavHostController) {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 //контейнер с акцией
-                Box(modifier = Modifier
+                Box(
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(15.dp)))
+                        .clip(RoundedCornerShape(15.dp))
+                )
                 {
                     Image(
                         modifier = Modifier.fillMaxSize(),

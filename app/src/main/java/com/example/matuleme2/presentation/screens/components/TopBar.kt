@@ -21,7 +21,7 @@ fun TopBar(controller: NavHostController,textcenter:String,fontWeight: FontWeigh
                 fontFamily = textfam,
                 fontWeight = fontWeight,
                 color = text,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
 
             endicon()

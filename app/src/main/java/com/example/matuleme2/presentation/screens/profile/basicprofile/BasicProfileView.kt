@@ -132,7 +132,7 @@ fun BasicProfileView(controller: NavHostController) {
                 }
         )
         Spacer(modifier = Modifier.height(35.dp))
-        ButtonExit("Сохранить"){
+        ButtonExit(buttontext = "Сохранить"){
             //Прописать действие кнопки в viewmodel
         }
 

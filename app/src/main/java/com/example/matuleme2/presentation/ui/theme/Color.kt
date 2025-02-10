@@ -22,3 +22,6 @@ val hint = Color(0xFF6A6A6A)
 val subtextdark = Color(0xFF707B81)
 
 val prof = Color(0xDFF7F7F9)
+
+val goluboi = Color(0xFFDFEFFF)
+

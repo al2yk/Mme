@@ -36,12 +36,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.example.matuleme2.R
 import com.example.matuleme2.data.models.Sneaker
+import com.example.matuleme2.presentation.navigation.NavigationRoutes
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.block
@@ -51,9 +53,11 @@ import com.example.matuleme2.presentation.ui.theme.textfam
 
 //Контейнер с кросовком
 @Composable
-fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit) {
+fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit, /*onClick:()->Unit*/) {
     var height by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
+
+
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(15.dp))
@@ -61,6 +65,9 @@ fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit) 
             .padding(top = 3.dp, start = 9.dp)
             .heightIn(min = height)
             .onSizeChanged { height = with(density) { it.height.toDp() } }
+            .clickable {
+                //controller.navigate(route = "product/${sneaker.id_sneaker}")
+            }
     ) {
         //цвет иконки
         var favIconColor: Color = text

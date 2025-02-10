@@ -101,4 +101,14 @@ dependencies {
     implementation("com.google.zxing:core:3.4.1")
     implementation("com.journeyapps:zxing-android-embedded:4.0.0")
 */
+
+    implementation ("com.yandex.android:maps.mobile:4.10.1-lite")
+
+    implementation("ru.sulgik.mapkit:yandex-mapkit-kmp-compose:0.1.1")
+
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.31.2-alpha")
+
+
+    implementation("com.google.android.gms:play-services-location:21.3.0")
 }

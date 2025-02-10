@@ -28,7 +28,7 @@ class ProductViewModel:ViewModel() {
                 Log.d("GetSneakersProduct",listSneakers.toString())
             }
             catch (e:Exception){
-                    Log.d("Не удалось получить список кросовок PRODUCt",e.message.toString())
+                    Log.d("Не удалось получить список кросовок PRODUCT",e.message.toString())
             }
         }
     }

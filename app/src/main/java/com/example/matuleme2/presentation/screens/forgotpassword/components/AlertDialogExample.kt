@@ -1,5 +1,6 @@
 package com.example.matuleme2.presentation.screens.forgotpassword.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -18,9 +19,12 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.matuleme2.R
 import com.example.matuleme2.presentation.ui.theme.accent
+import com.example.matuleme2.presentation.ui.theme.goluboi
+import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
 //Диалоговое окно после Forgot Password
@@ -74,5 +78,59 @@ fun AlertDialogExample(
         shape = RoundedCornerShape(15.dp),
         confirmButton = {},
         dismissButton = {}
+    )
+}
+
+//Диалоговое окно после CheckOut
+
+@Preview
+@Composable
+fun Preview() {
+    AlertDialogCheckOut({}, {}, "", "", icon = painterResource(R.drawable.checkemailicon))
+}
+
+@Composable
+fun AlertDialogCheckOut(
+    onDismissRequest: () -> Unit,
+    onConfirmation: () -> Unit,
+    dialogTitle: String,
+    dialogText: String,
+    icon: Painter,
+) {
+
+    AlertDialog(
+
+        icon = {
+            Box(modifier = Modifier
+                .clip(CircleShape)
+                .size(134.dp)
+                .background(goluboi)
+                .clickable {
+
+                })
+            {
+                Image(
+                    contentDescription = "",
+                    painter = painterResource(R.drawable.happy),
+                    modifier = Modifier.align(Alignment.Center).size(66.dp)
+                )
+            }
+        },
+        title = {
+            Text(
+                text = dialogTitle,
+                color = text,
+                fontFamily = textfam,
+                fontWeight = FontWeight.W600,
+                textAlign = TextAlign.Center
+            )
+        },
+        onDismissRequest = {
+            onDismissRequest()
+        },
+        shape = RoundedCornerShape(15.dp),
+        confirmButton = {},
+        dismissButton = {},
+
     )
 }

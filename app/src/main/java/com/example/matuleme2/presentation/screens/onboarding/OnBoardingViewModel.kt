@@ -8,9 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class OnBoardingViewModel : ViewModel() {
-    //Спросить Настю, как сохранить сотояние в системе
+
     private val _externalOnBoardState =
         MutableStateFlow<OnBoardingUIState>(OnBoardingUIState.OnBoarding1())
+
     val externalOnBoardState = _externalOnBoardState.asStateFlow()
 
 

@@ -79,7 +79,7 @@ fun ForgotPasswordView(
 
         Spacer(modifier = Modifier.height(40.dp))
         //Кнопка отправить
-        ButtonExit("Отправить") {
+        ButtonExit(buttontext = "Отправить") {
             viewModel.ForgotPasswordOTP(controller)
         }
         //Если код отправился на почту ( dialog = true)
