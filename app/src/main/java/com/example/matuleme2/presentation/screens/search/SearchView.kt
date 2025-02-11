@@ -82,11 +82,15 @@ fun SearchView(controller: NavHostController) {
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth().padding(vertical = 0.dp),
+                .fillMaxWidth()
+                .padding(vertical = 0.dp),
             contentAlignment = Alignment.TopCenter
         ) {
             SearchBar(
-                modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter).background(background)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopCenter)
+                    .background(background)
                     .padding(vertical = 0.dp),
                 query = textS,
                 onQueryChange = {
@@ -149,7 +153,10 @@ fun SearchView(controller: NavHostController) {
                                     painter = painterResource(R.drawable.clock),
                                     contentDescription = "", tint = subtextdark
                                 )
-                                Text(text = it, modifier = Modifier.align(Alignment.CenterVertically))
+                                Text(
+                                    text = it,
+                                    modifier = Modifier.align(Alignment.CenterVertically)
+                                )
                             }
                         }
                     }
@@ -172,7 +179,12 @@ fun SearchView(controller: NavHostController) {
                     //modifier = Modifier.verticalScroll(rememberScrollState())
                 ) {
                     items(state.sneakerslist) { sneaker ->
-                        SneakerItem(sneaker, false, {})
+                        SneakerItem(
+                            sneaker,
+                            false,
+                            onClick = { controller.navigate("product/${sneaker.id_sneaker}") },
+                            onClickFav = {}
+                        )
                     }
                 }
             }

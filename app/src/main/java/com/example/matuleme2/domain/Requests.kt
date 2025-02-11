@@ -1,9 +1,12 @@
 package com.example.matuleme2.domain
 
+import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.example.matuleme2.data.models.Favourite
 import com.example.matuleme2.data.models.Sneaker
 import com.example.matuleme2.domain.repository.UserRepository
 import io.github.jan.supabase.postgrest.from
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 object Requests {
@@ -34,6 +37,4 @@ object Requests {
             }
         }
     }
-
-
 }

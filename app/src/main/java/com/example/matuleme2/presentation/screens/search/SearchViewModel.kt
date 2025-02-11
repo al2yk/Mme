@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.matuleme2.data.models.Sneaker
 import com.example.matuleme2.data.states.SearchState
 import com.example.matuleme2.domain.Constants
+import com.example.matuleme2.domain.Requests
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,6 +42,15 @@ class SearchViewModel : ViewModel() {
                         )
                     }
                 }.decodeList<Sneaker>()
+
+                val listIdFavSneakers = Requests.getIdFavSneakers()
+
+                updateState(
+                    _state.value.copy(
+                        listIdFavSneakers = listIdFavSneakers
+                    )
+                )
+
                 updateState(_state.value.copy(sneakerslist = listsneaker))
                 Log.d("Search", listsneaker.size.toString())
 
@@ -49,4 +59,33 @@ class SearchViewModel : ViewModel() {
             }
         }
     }
+
+/*    fun clickFavIcon(sneaker: Sneaker) {
+        if (state.listIdFavSneakers.contains(sneaker.id_sneaker)) deleteFav(sneaker.id_sneaker)
+        else addFav(sneaker.id_sneaker)
+    }
+
+    fun deleteFav(sneakerId: String) {
+        viewModelScope.launch {
+            try {
+                Requests.deleteFavItem(sneakerId)
+                Log.d("удаление из избранного", "ок")
+                searchSneaker()
+            } catch (e: Exception) {
+                Log.d("удаление из избранного | ошибка", e.message.toString())
+            }
+        }
+    }
+
+    fun addFav(sneakerId: String) {
+        viewModelScope.launch {
+            try {
+                Requests.addSneakerInFav(sneakerId)
+                Log.d("добавление в избранное", "ок")
+                getData()
+            } catch (e: Exception) {
+                Log.d("добавление в избранное | ошибка", e.message.toString())
+            }
+        }
+    }*/
 }

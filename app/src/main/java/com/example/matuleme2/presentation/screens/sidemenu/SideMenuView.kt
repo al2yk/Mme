@@ -94,13 +94,21 @@ fun SideMenuView(controller: NavHostController) {
                     controller.navigate(NavigationRoutes.BASICPROFILE)
                 }
                 Spacer(modifier = Modifier.height(30.dp))
-                IconAndText(painterResource(R.drawable.bag), "Корзина"){}
+                IconAndText(painterResource(R.drawable.bag), "Корзина"){
+                    controller.navigate(NavigationRoutes.BUCKET)
+                }
                 Spacer(modifier = Modifier.height(30.dp))
-                IconAndText(painterResource(R.drawable.favprofile), "Избранное"){}
+                IconAndText(painterResource(R.drawable.favprofile), "Избранное"){
+                    controller.navigate(NavigationRoutes.FAVOURITE)
+                }
                 Spacer(modifier = Modifier.height(30.dp))
-                IconAndText(painterResource(R.drawable.orders), "Заказы"){}
+                IconAndText(painterResource(R.drawable.orders), "Заказы"){
+                    controller.navigate(NavigationRoutes.ORDERS)
+                }
                 Spacer(modifier = Modifier.height(30.dp))
-                IconAndTextForNotification(painterResource(R.drawable.notification), "Уведомления","")
+                IconAndTextForNotification(painterResource(R.drawable.notification), "Уведомления"){
+                    controller.navigate(NavigationRoutes.NOTIFICATION)
+                }
                 Spacer(modifier = Modifier.height(30.dp))
                 IconAndText(painterResource(R.drawable.setings), "Настройки"){}
                 Spacer(modifier = Modifier.height(30.dp))
@@ -178,7 +186,7 @@ fun IconAndText(icon: Painter, title: String, way: () -> Unit) {
 }
 
 @Composable
-fun IconAndTextForNotification(icon: Painter, title: String, way: String) {
+fun IconAndTextForNotification(icon: Painter, title: String, way: () -> Unit) {
 
 
     //ДОБАВИТЬ ПРО УВЕДОМЛЕНИЯ, ЕСЛИ ОНИ ЕСТЬ ТО У ИКОНКИ УВЕДОМЛЕНИЯ
@@ -187,7 +195,7 @@ fun IconAndTextForNotification(icon: Painter, title: String, way: String) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                way
+                way()
             },
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically

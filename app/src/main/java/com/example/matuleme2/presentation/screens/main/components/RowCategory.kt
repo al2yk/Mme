@@ -29,6 +29,7 @@ fun RowCategory(
         fontWeight = FontWeight.Bold,
         color = text
     )
+
     Spacer(modifier = Modifier.height(20.dp))
     LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
         items(state.categories) { category ->

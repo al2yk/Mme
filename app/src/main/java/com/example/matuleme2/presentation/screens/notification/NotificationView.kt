@@ -16,11 +16,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.matuleme2.data.models.Notification
 import com.example.matuleme2.presentation.screens.components.Banner
+import com.example.matuleme2.presentation.screens.components.TopBar
 import kotlinx.coroutines.delay
 
 @Composable
@@ -41,9 +44,13 @@ fun NotificationView(controller: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            /*.verticalScroll(rememberScrollState())*/
             .padding(horizontal = 20.dp, vertical = 60.dp)
     ) {
+        TopBar(controller,"Уведомления", FontWeight.SemiBold) { }
+
+        Spacer(modifier = Modifier.height(14.dp))
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(1),
             horizontalArrangement = Arrangement.Center,

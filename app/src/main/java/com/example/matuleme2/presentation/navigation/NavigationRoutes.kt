@@ -17,9 +17,10 @@ object NavigationRoutes {
     const val EDITPROFILE = "editproofile"
     const val POPULAR = "popular"
     const val CATEGORY = "category"
-    const val PRODUCT = "product/{index}"
+    const val PRODUCT = "product/{sneakerID}"
     const val SEARCH = "search"
     const val GENERATEPASSWORD = "genpassword"
     const val MAP = "map"
+    const val ORDERS = "orders"
 
 }

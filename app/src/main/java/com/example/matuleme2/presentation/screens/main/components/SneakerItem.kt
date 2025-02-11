@@ -53,7 +53,7 @@ import com.example.matuleme2.presentation.ui.theme.textfam
 
 //Контейнер с кросовком
 @Composable
-fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit, /*onClick:()->Unit*/) {
+fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit, onClick:()->Unit) {
     var height by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
 
@@ -66,6 +66,7 @@ fun SneakerItem(sneaker: Sneaker, isFavourite: Boolean, onClickFav: () -> Unit, 
             .heightIn(min = height)
             .onSizeChanged { height = with(density) { it.height.toDp() } }
             .clickable {
+                onClick()
                 //controller.navigate(route = "product/${sneaker.id_sneaker}")
             }
     ) {

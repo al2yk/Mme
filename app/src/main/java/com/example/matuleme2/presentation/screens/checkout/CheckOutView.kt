@@ -36,10 +36,12 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.matuleme2.R
 import com.example.matuleme2.presentation.navigation.NavigationRoutes
 import com.example.matuleme2.presentation.screens.components.ButtonExit
@@ -51,6 +53,7 @@ import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.block
 import com.example.matuleme2.presentation.ui.theme.goluboi
 import com.example.matuleme2.presentation.ui.theme.hint
+import com.example.matuleme2.presentation.ui.theme.red
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
@@ -77,7 +80,7 @@ fun CheckOutView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 60.dp)
-                .blur(radius =back.value)
+                .blur(radius = back.value)
         ) {
 
 
@@ -401,7 +404,7 @@ fun CheckOutView(
 
             ButtonExit(buttontext = "Подтвердить") {
                 vm.updatestate(state.copy(dialog = false))
-                back.value = 8.dp
+                back.value = 7.dp
             }
 
 
@@ -411,15 +414,24 @@ fun CheckOutView(
 
 }
 
+@Preview(showBackground = true)
+@Composable
+fun prewiew() {
+    DialogCheckOut(rememberNavController())
+}
+
 @Composable
 fun DialogCheckOut(controller: NavHostController) {
-    Box(modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(15.dp)), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(), contentAlignment = Alignment.Center
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(block)
+                .clip(RoundedCornerShape(15.dp))
                 .padding(horizontal = 20.dp)
-                .clip(RoundedCornerShape(15.dp)),
+                .background(block),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         )
@@ -452,14 +464,14 @@ fun DialogCheckOut(controller: NavHostController) {
                 fontWeight = FontWeight.W600,
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp,
-                modifier = Modifier.padding(horizontal = 100.dp)
+                modifier = Modifier.padding(horizontal = 80.dp)
             )
 
             Spacer(modifier = Modifier.height(30.dp))
 
             ButtonExit(
                 buttontext = "Вернуться К Покупкам",
-                modifier = Modifier.padding(horizontal = 80.dp)
+                modifier = Modifier.padding(horizontal = 60.dp)
             )
             {
                 controller.navigate(NavigationRoutes.MAIN)

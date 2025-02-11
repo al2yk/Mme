@@ -16,7 +16,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -27,10 +26,8 @@ import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.subtextdark
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
-import kotlinx.datetime.Instant
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 
 
 //ПЕРЕДЕЛАТЬ
@@ -75,7 +72,7 @@ fun Banner(Noti:Notification) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(15.dp))
-            .background(accent)
+            .background(background)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)

@@ -1,5 +1,6 @@
 package com.example.matuleme2.presentation.screens.main
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -218,8 +219,13 @@ fun MainScreen(controller: NavHostController) {
                                 sneaker,
                                 state.listIdFavSneakers.contains(sneaker.id_sneaker),
                                 onClickFav = { vm.clickFavIcon(sneaker) },
-                                /*onClick = {controller.navigate("product/${sneaker.id_sneaker}")},*/
-                                )
+                                onClick = {
+                                    Log.d("MainScreen", "Sneaker clicked: ${sneaker.id_sneaker}")
+                                    controller.navigate("product/${sneaker.id_sneaker}")
+                                    Log.d("переход","а")
+
+                                }
+                            )
 
                         }
                     }
@@ -284,9 +290,10 @@ fun MainScreen(controller: NavHostController) {
                         state.sneakers.filter { it.id_category == state.selectedCategory.id_category }
                     if (state.selectedCategory.category == "Все") listSneaker = state.sneakers
                     items(listSneaker) { sneaker ->
-                        SneakerItem(sneaker, state.listIdFavSneakers.contains(sneaker.id_sneaker)) {
-                            vm.clickFavIcon(sneaker)
-                        }
+                        SneakerItem(
+                            sneaker, state.listIdFavSneakers.contains(sneaker.id_sneaker),
+                            onClick = { controller.navigate("product/${sneaker.id_sneaker}") },
+                            onClickFav = { vm.clickFavIcon(sneaker) })
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))
@@ -319,14 +326,13 @@ fun MainScreen(controller: NavHostController) {
                         items(listSneaker) { sneaker ->
                             SneakerItem(
                                 sneaker,
-                                state.listIdFavSneakers.contains(sneaker.id_sneaker)
-                            ) {
-                                vm.clickFavIcon(sneaker)
-                            }
+                                state.listIdFavSneakers.contains(sneaker.id_sneaker),
+                                onClickFav = { vm.clickFavIcon(sneaker) },
+                                onClick = { controller.navigate("product/${sneaker.id_sneaker}") })
                         }
                     }
-
                 }
+
 
             }
         }

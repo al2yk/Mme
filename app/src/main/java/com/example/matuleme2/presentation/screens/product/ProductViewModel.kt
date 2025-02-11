@@ -33,7 +33,3 @@ class ProductViewModel:ViewModel() {
         }
     }
 }
-
-sealed class ScreenProduct(title:String){
-
-}
