@@ -20,7 +20,7 @@ fun OrdersView(controller: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp, vertical = 40.dp)
+            .padding(horizontal = 20.dp, vertical = 60.dp)
     ) {
 
         TopBar(controller,"Заказы",FontWeight.SemiBold) { }

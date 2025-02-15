@@ -1,5 +1,6 @@
 package com.example.matuleme2.presentation.screens.profile.basicprofile
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,13 +16,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,13 +35,16 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Size
 import com.example.matuleme2.R
 import com.example.matuleme2.presentation.navigation.NavigationRoutes
 import com.example.matuleme2.presentation.screens.components.ButtonExit
 import com.example.matuleme2.presentation.screens.components.TextFieldSignInEmail
 import com.example.matuleme2.presentation.screens.components.TextNearTextFieldEditProfile
 import com.example.matuleme2.presentation.screens.components.iconback
-import com.example.matuleme2.presentation.screens.profile.editprofile.EditProfileView
 import com.example.matuleme2.presentation.screens.profile.editprofile.EditProfileViewModel
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.hint
@@ -55,6 +63,10 @@ fun BasicProfileView(controller: NavHostController) {
 
     val vm = viewModel{ EditProfileViewModel() }
     val state = vm.state
+
+    LaunchedEffect(Unit) {
+        vm.loadProfileData()
+    }
 
     Column(
         modifier = Modifier
@@ -85,7 +97,26 @@ fun BasicProfileView(controller: NavHostController) {
                     .clip(CircleShape)
                     .size(80.dp)
                     .background(Color.White)
-            )
+            ){
+                val imgState = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(state.image)
+                        .size(Size.ORIGINAL).build()
+                ).state
+                if (imgState is AsyncImagePainter.State.Error) {
+                    CircularProgressIndicator()
+                }
+                if (imgState is AsyncImagePainter.State.Success) {
+                    Image(
+                        modifier = Modifier
+                            .fillMaxWidth(1f)
+                            .clip(RoundedCornerShape(15.dp)),
+                        painter = imgState.painter,
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop
+                    )
+                }
+            }
 
             Box(contentAlignment = Alignment.Center, modifier = Modifier
                 .padding(horizontal = 10.dp)
@@ -103,18 +134,18 @@ fun BasicProfileView(controller: NavHostController) {
         }
         Spacer(modifier = Modifier.height(20.dp))
         TextNearTextFieldEditProfile("Ваше имя")
-        TextFieldSignInEmail(state.name, "",false, text) {
+        TextFieldSignInEmail(value = "${state.name} ${state.surname}".uppercase(), "",false, text) {
             vm.updatestate(state.copy(name = it))
         }
         Spacer(modifier = Modifier.height(30.dp))
 
-//        TextNearTextFieldEditProfile("Email")
-//        TextFieldSignInEmail(state.email, state.email,false, text) {
-//            vm.updatestate(state.copy(email = it))
-//        }
+        TextNearTextFieldEditProfile("Email")
+        TextFieldSignInEmail(state.email, state.email,false, text) {
+            vm.updatestate(state.copy(email = it))
+        }
         Spacer(modifier = Modifier.height(30.dp))
         TextNearTextFieldEditProfile("Пароль")
-        TextFieldSignInEmail(state.password, state.password,false, hint) {
+        TextFieldSignInEmail("", "● ● ● ● ● ● ●",false, hint) {
             vm.updatestate(state.copy(name = it))
         }
 
@@ -133,10 +164,8 @@ fun BasicProfileView(controller: NavHostController) {
         )
         Spacer(modifier = Modifier.height(35.dp))
         ButtonExit(buttontext = "Сохранить"){
-            //Прописать действие кнопки в viewmodel
+            vm.updateProfile()
         }
-
     }
-
-
 }
+

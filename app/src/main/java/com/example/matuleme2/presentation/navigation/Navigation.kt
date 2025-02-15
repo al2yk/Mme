@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.internal.composableLambda
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,10 +12,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.matuleme2.presentation.screens.checkout.CheckOutView
 import com.example.matuleme2.presentation.screens.checkout.map.MapFullScreen
+import com.example.matuleme2.presentation.screens.components.barcode.BarCodeView
 import com.example.matuleme2.presentation.screens.favourite.FavView
 import com.example.matuleme2.presentation.screens.forgotpassword.ForgotPasswordView
 import com.example.matuleme2.presentation.screens.generatepassword.GenPasswordView
 import com.example.matuleme2.presentation.screens.main.MainScreen
+import com.example.matuleme2.presentation.screens.myCart.myCart
 import com.example.matuleme2.presentation.screens.notification.NotificationView
 import com.example.matuleme2.presentation.screens.onboarding.OnBoardingScreen
 import com.example.matuleme2.presentation.screens.orders.OrdersView
@@ -77,21 +78,6 @@ fun Navigation(controller: NavHostController, visibleBar: MutableState<Boolean>,
         composable(NavigationRoutes.EDITPROFILE) {
             EditProfileView(controller)
         }
-/*
-
-        composable(NavigationRoutes.PRODUCT, arguments = listOf(
-            navArgument(name = "index") { type = NavType.IntType }
-        )) { index ->
-            visibleBar.value = false
-            ProductView(controller, itemIndex = index.arguments?.getInt("index"))
-        }
-        composable("product/{sneakerID}")
-        {  backStackEntry->
-
-            val sneakerId = backStackEntry.arguments?.getString("sneakerID")    ?: 0
-            visibleBar.value = false
-            ProductView(controller,sneakerId)
-        }*/
 
         composable(NavigationRoutes.SEARCH) {
             SearchView(controller)
@@ -111,8 +97,9 @@ fun Navigation(controller: NavHostController, visibleBar: MutableState<Boolean>,
             CheckOutView(controller,CurLoc)
             visibleBar.value = false
         }
-        composable(NavigationRoutes.MAP) {
-            MapFullScreen(controller,CurLoc)
+        composable(NavigationRoutes.MAP + "/{address}") { arg->
+            val address = arg.arguments?.getString("address")
+            MapFullScreen(controller,CurLoc,address?: "")
         }
         composable(NavigationRoutes.ORDERS) {
             OrdersView(controller)
@@ -126,6 +113,18 @@ fun Navigation(controller: NavHostController, visibleBar: MutableState<Boolean>,
             val sneakerID = backStackEntry.arguments?.getString("sneakerID")
             ProductView(controller, sneakerID)
         }
+
+        composable(NavigationRoutes.MYCART) {
+            myCart(controller)
+            visibleBar.value = false
+
+        }
+        composable(NavigationRoutes.BARCODE + "/{iduser}") { arg->
+            val iduser = arg.arguments?.getString("iduser")
+            BarCodeView(iduser?: "",controller)
+            visibleBar.value = false
+        }
+
     }
 
 }

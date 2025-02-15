@@ -1,6 +1,5 @@
 package com.example.matuleme2.presentation.screens.profile.editprofile
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,23 +15,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,10 +35,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.matuleme2.R
-import com.example.matuleme2.domain.repository.UserRepository
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Size
+import com.example.matuleme2.presentation.navigation.NavigationRoutes
+import com.example.matuleme2.presentation.screens.components.TextFieldForEditProfile
 import com.example.matuleme2.presentation.screens.components.TextNearTextFieldInProfile
 import com.example.matuleme2.presentation.screens.components.iconback
+import com.example.matuleme2.presentation.screens.components.barcode.BarCodeGenerate
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.text
@@ -60,6 +60,10 @@ fun EditProfileView(controller: NavHostController) {
 
     val vm = viewModel { EditProfileViewModel() }
     val state = vm.state
+
+    LaunchedEffect(Unit) {
+        vm.loadProfileData()
+    }
 
     Column(
         modifier = Modifier
@@ -89,7 +93,26 @@ fun EditProfileView(controller: NavHostController) {
                             .size(96.dp)
                             .background(Color.White)
 
-                    ){}
+                    ){
+                        val imgState = rememberAsyncImagePainter(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(state.image)
+                                .size(Size.ORIGINAL).build()
+                        ).state
+                        if (imgState is AsyncImagePainter.State.Error) {
+                            CircularProgressIndicator()
+                        }
+                        if (imgState is AsyncImagePainter.State.Success) {
+                            Image(
+                                modifier = Modifier
+                                    .fillMaxWidth(1f)
+                                    .clip(RoundedCornerShape(15.dp)),
+                                painter = imgState.painter,
+                                contentDescription = "",
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    }
                 }
 
 
@@ -126,6 +149,8 @@ fun EditProfileView(controller: NavHostController) {
                 }
                 Spacer(modifier = Modifier.height(20.dp))
 
+
+
                 //Контейнер с штрих кодом
                 Box(
                     modifier = Modifier
@@ -133,6 +158,9 @@ fun EditProfileView(controller: NavHostController) {
                         .clip(shape = RoundedCornerShape(15.dp))
                         .background(background)
                         .height(65.dp)
+                        .clickable {
+                            controller.navigate(NavigationRoutes.BARCODE + "/${state.iduser}")
+                        }
                 )
                 {
                     Text(
@@ -141,8 +169,11 @@ fun EditProfileView(controller: NavHostController) {
                         fontSize = 12.sp, modifier = Modifier
                             .rotate(-90f)
                             .align(Alignment.CenterStart)
+
+
                     )
 
+                    BarCodeGenerate(state.iduser)
                     //Добавить сюда штрих код
 
                 }
@@ -167,41 +198,10 @@ fun EditProfileView(controller: NavHostController) {
         }
 
 
+
     }
 
+
+
 }
 
-@Composable
-fun TextFieldForEditProfile(value: String, onvaluechange: (String) -> Unit) {
-
-    val vm = viewModel { EditProfileViewModel() }
-    TextField(
-        value = value,
-        onValueChange = { onvaluechange(it) },
-        modifier = Modifier.fillMaxWidth(),
-        colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = background,
-            unfocusedTextColor = text,
-            focusedContainerColor = background,
-            focusedTextColor = text,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            disabledContainerColor = background,
-            disabledTextColor = text
-        ),
-        shape = RoundedCornerShape(15.dp),
-        singleLine = true,
-        trailingIcon = {
-            //Написать условие появления этих галочек
-            Icon(
-                painter = painterResource(R.drawable.yesicon),
-                contentDescription = "",
-                tint = accent,
-                modifier = Modifier.clickable {
-                    vm.EditProfileData(value)
-                }
-            )
-        }
-    )
-}

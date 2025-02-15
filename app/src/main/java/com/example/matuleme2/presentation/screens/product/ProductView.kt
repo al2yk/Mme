@@ -172,6 +172,7 @@ fun ProductView(controller: NavHostController, sneakerID: String?) {
                                         index % state.Sneakers.size // Получаем индекс кроссовка
                                     MiniIcon(
                                         state.Sneakers[sneakerIndex],
+                                        56,
                                         onClick = { controller.navigate("product/${state.Sneakers[sneakerIndex].id_sneaker}") }
                                     )
                                 }

@@ -22,11 +22,11 @@ import com.example.matuleme2.data.models.Sneaker
 import com.example.matuleme2.presentation.ui.theme.block
 
 @Composable
-fun MiniIcon(sneaker: Sneaker,onClick: () -> Unit) {
+fun MiniIcon(sneaker: Sneaker,sizeicon:Int,onClick: () -> Unit) {
 
     Box(
         modifier = Modifier
-            .size(56.dp)
+            .size(sizeicon.dp)
             .clip(RoundedCornerShape(15.dp))
             .background(block)
             .clickable { onClick() }

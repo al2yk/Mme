@@ -5,10 +5,8 @@ import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,14 +28,14 @@ import com.example.matuleme2.presentation.ui.theme.MATULEme2Theme
 @Composable
 fun Preview() {
 
-    MapFullScreen(rememberNavController(), null)
+    /*MapFullScreen(rememberNavController(), null, address?: "")*/
 
 }
 
 @RequiresApi(Build.VERSION_CODES.S)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MapFullScreen(controller: NavHostController, CurLoc: Location?) {
+fun MapFullScreen(controller: NavHostController, CurLoc: Location?, s: String) {
 
     Box(
         modifier = Modifier

@@ -58,9 +58,5 @@ class ForgotPasswordViewModel @Inject constructor(@ApplicationContext private va
             }
         }
     }
-
-    fun again(){
-
-    }
 }
 

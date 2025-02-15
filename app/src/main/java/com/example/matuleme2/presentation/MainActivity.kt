@@ -3,6 +3,7 @@ package com.example.matuleme2.presentation
 import BottomBar
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -115,5 +116,21 @@ class MainActivity : ComponentActivity() {
                     null
                 }
             }
+    }
+}
+
+fun getLocationFromAddress(address: String,context:Context): Pair<Double, Double>? {
+    val geocoder = Geocoder(context, Locale.getDefault())
+
+    return try {
+        val addresses = geocoder.getFromLocationName(address, 1)
+        if (addresses!!.isNotEmpty() == true) {
+            val location = addresses[0]
+            Pair(location.latitude, location.longitude)
+        } else {
+            null
+        }
+    } catch (e: Exception) {
+        null
     }
 }

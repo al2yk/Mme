@@ -24,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -47,13 +49,13 @@ import com.example.matuleme2.presentation.navigation.NavigationRoutes
 import com.example.matuleme2.presentation.screens.components.ButtonExit
 import com.example.matuleme2.presentation.screens.components.MapScreen
 import com.example.matuleme2.presentation.screens.components.TopBar
+import com.example.matuleme2.presentation.screens.components.getAddressFromLocation
 import com.example.matuleme2.presentation.ui.theme.MATULEme2Theme
 import com.example.matuleme2.presentation.ui.theme.accent
 import com.example.matuleme2.presentation.ui.theme.background
 import com.example.matuleme2.presentation.ui.theme.block
 import com.example.matuleme2.presentation.ui.theme.goluboi
 import com.example.matuleme2.presentation.ui.theme.hint
-import com.example.matuleme2.presentation.ui.theme.red
 import com.example.matuleme2.presentation.ui.theme.text
 import com.example.matuleme2.presentation.ui.theme.textfam
 
@@ -65,12 +67,17 @@ fun CheckOutView(
     controller: NavHostController,
     location: Location?,
 ) {
+    var context = LocalContext.current
+    val address = remember { getAddressFromLocation(context, location) }
 
     val vm = viewModel { CheckOutViewModel() }
 
     var state = vm.state
     var back = remember { mutableStateOf(0.dp) }
 
+    LaunchedEffect(Unit) {
+        vm.getUserData(address)
+    }
 
     Box(
         modifier = Modifier
@@ -133,7 +140,7 @@ fun CheckOutView(
                                 .padding(start = 52.dp)
                         ) {
                             Text(
-                                "ПОЧТА ПОЛЬЗОВАТЕЛЯ", color = text,
+                                state.email, color = text,
                                 fontWeight = FontWeight.Medium,
                                 fontSize = 14.sp
                             )
@@ -190,7 +197,7 @@ fun CheckOutView(
                         )
                         {
                             Text(
-                                "ТЕЛЕФОн ПОЛЬЗОВАТЕЛЯ", color = text,
+                                state.phonenumber, color = text,
                                 fontWeight = FontWeight.Medium,
                                 fontSize = 14.sp
                             )
@@ -226,7 +233,7 @@ fun CheckOutView(
                     //адрес
                     Box(modifier = Modifier.fillMaxWidth()) {
                         Text(
-                            "адрес пользователя",
+                            state.address,
                             color = hint,
                             fontWeight = FontWeight.Medium,
                             fontSize = 12.sp, modifier = Modifier.align(Alignment.CenterStart)
@@ -267,7 +274,7 @@ fun CheckOutView(
                             .fillMaxSize()
                             .background(Color(0x66000000))
                             .clickable {
-                                controller.navigate(NavigationRoutes.MAP)
+                                controller.navigate(NavigationRoutes.MAP + "/${state.address}")
                             }) {
 
                         }
@@ -282,7 +289,7 @@ fun CheckOutView(
                                 .padding(top = 19.dp)
                                 .align(Alignment.TopCenter)
                                 .clickable {
-                                    controller.navigate(NavigationRoutes.MAP)
+                                    controller.navigate(NavigationRoutes.MAP + "/${state.address}")
                                 }
                         )
                         Box(
@@ -303,9 +310,8 @@ fun CheckOutView(
                                     .align(Alignment.Center)
                                     .size(20.dp)
                                     .clickable {
-                                        controller.navigate(NavigationRoutes.MAP)
+                                        controller.navigate(NavigationRoutes.MAP + "/${state.address}")
                                     }
-
                             )
                         }
 

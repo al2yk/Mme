@@ -11,5 +11,8 @@ data class EditProfileState(
     val address: String = "",
     val telephone: String ="",
     val password: String = "",
-    var codeImg: ImageBitmap? = null
+    val image: String = "",
+    var codeImg: ImageBitmap? = null,
+    val email: String="",
+    val iduser:String=""
     )

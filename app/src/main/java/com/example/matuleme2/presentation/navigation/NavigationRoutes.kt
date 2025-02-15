@@ -22,5 +22,8 @@ object NavigationRoutes {
     const val GENERATEPASSWORD = "genpassword"
     const val MAP = "map"
     const val ORDERS = "orders"
+    const val MYCART = "mycart"
+    const val BARCODE ="Barcode"
+
 
 }
